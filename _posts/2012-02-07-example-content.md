@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Example content
+tags: fred fred smith Solaris 11
 ---
 
 
