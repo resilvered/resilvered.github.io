@@ -1,0 +1,32 @@
+.sidebar-about h1 {
+  font-size: 1.6rem;
+}
+
+.sidebar-about p {
+  font-size: 1.0rem;
+}
+.sidebar-about {
+  padding-left: 1rem;
+  margin: 0 auto;
+}
+#social-bar {
+  margin-top: 3em;
+  text-align: center;
+}
+#social-bar a:hover {
+  color: #ccc;
+}
+.sidebar-nav .active:before {
+    content: "\00BB";
+}
+.sidebar-nav h1 {
+  font-size: 1.6rem;
+}
+
+.sidebar-nav p {
+  font-size: 1.0rem;
+}
+.sidebar-nav {
+  padding-left: 1rem;
+  margin: 0 auto;
+}
