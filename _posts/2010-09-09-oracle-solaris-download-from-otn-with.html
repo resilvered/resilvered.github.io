@@ -1,0 +1,24 @@
+---
+title: "Oracle Solaris download from OTN with wget"
+layout: "post"
+permalink: "/2010/09/oracle-solaris-download-from-otn-with.html"
+uuid: "3373400549969283180"
+guid: "tag:blogger.com,1999:blog-8745734052417186264.post-3373400549969283180"
+date: "2010-09-09 11:44:00"
+updated: "2010-10-17 07:58:43"
+description: 
+blogger:
+    siteid: "8745734052417186264"
+    postid: "3373400549969283180"
+    comments: "0"
+categories: [blog, wget, solaris, oracle]
+tags: [ wget, solaris, oracle]
+author: 
+    name: "Alan Chalmers"
+    url: "https://plus.google.com/109008868852571463084?rel=author"
+    image: "//lh6.googleusercontent.com/-vRVdiWd12ak/AAAAAAAAAAI/AAAAAAAAHKc/wXgK4dFefp8/s512-c/photo.jpg"
+---
+
+<div class="css-full-post-content js-full-post-content">
+<a onblur="try {parent.deselectBloggerImageGracefully();} catch(e) {}" href="http://3.bp.blogspot.com/_EHWk6PkydBw/TIjI_rBOwpI/AAAAAAAAADA/xkI7u1hAlDc/s1600/Oracle_Solaris_logo.png"><img style="float:left; margin:0 10px 10px 0;cursor:pointer; cursor:hand;width: 200px; height: 97px;" src="http://3.bp.blogspot.com/_EHWk6PkydBw/TIjI_rBOwpI/AAAAAAAAADA/xkI7u1hAlDc/s200/Oracle_Solaris_logo.png" border="0" alt="" id="BLOGGER_PHOTO_ID_5514878739920372370" /></a><a href="http://www.oracle.com/technetwork/server-storage/solaris/downloads/index.html">Solaris 10 Update 9</a> recently announced and I believe this is the first release under the new stewardship. For the first time last month I received an email from my ISP saying I was getting close to my peak download limit, so I am making concerted effort to download in my off-peak time.<div><br /></div><div>So I need to automate the download of recent Solaris release from OTN. Drop this wget incantation into an at job and we are off.</div><div><br /></div><div><div><span class="Apple-style-span"  style="font-family:'courier new';">wget -v -c --no-check-certificate "https://profile.oracle.com/jsp/reg/loginHandler.jsp?remoteIp=xxx.xxx.xxx.xxx&amp;globalId=&amp;redirectUrl=http://download.oracle.com/otn/solaris/10/sol-10-u9-ga-x86-dvd-iso.zip&amp;username=XXXXX&amp;password=XXXXX" -o getsolarisx86.log &amp;</span></div></div><div><br /></div><div>Replace xxx.xxx.xxx.xxx with your remoteIP address and the same for your OTN username and password and you should be in business. </div><div><br /></div>
+</div>

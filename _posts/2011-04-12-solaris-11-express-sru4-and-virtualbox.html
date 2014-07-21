@@ -1,0 +1,24 @@
+---
+title: "Solaris 11 Express SRU4 and VirtualBox 4 bad combo"
+layout: "post"
+permalink: "/2011/04/solaris-11-express-sru4-and-virtualbox.html"
+uuid: "7919190783953086002"
+guid: "tag:blogger.com,1999:blog-8745734052417186264.post-7919190783953086002"
+date: "2011-04-12 13:32:00"
+updated: "2011-04-12 13:41:32"
+description: 
+blogger:
+    siteid: "8745734052417186264"
+    postid: "7919190783953086002"
+    comments: "0"
+categories: [blog, work, virtualbox, Solaris 11]
+tags: [work, virtualbox, Solaris 11]
+author: 
+    name: "Alan Chalmers"
+    url: "https://plus.google.com/109008868852571463084?rel=author"
+    image: "//lh6.googleusercontent.com/-vRVdiWd12ak/AAAAAAAAAAI/AAAAAAAAHKc/wXgK4dFefp8/s512-c/photo.jpg"
+---
+
+<div class="css-full-post-content js-full-post-content">
+So I've been tracking the Solaris 11 Express Support repo updates for a while. I had issue today where I couldn't make a network connection to my virtual box guests. They would ping but no ssh and no http connection. The later being important as my VB guest is running a local mirror repo. while I could connect to the guest from other machines on the network I could connect to them from the the machine hosting the guests.<br /><br />To cut the 3 hours I wasted chasing this problem turns out if I reverted my BE to the previous one... no problems everything works as expected. A quick check to the Oracle support rep sees there is now an SRU5 so I did an update nothing to lose. Update completed and my network connectivity to my guest has returned<br /><br />Solaris 11 Express SRU4 not compatible with VirtualBox 4.0.4.
+</div>

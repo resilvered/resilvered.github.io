@@ -1,0 +1,24 @@
+---
+title: "OEL Handsfree install for Oracle VM Manager part 2"
+layout: "post"
+permalink: "/2012/07/oel-handsfree-install-for-oracle-vm.html"
+uuid: "665048389372345588"
+guid: "tag:blogger.com,1999:blog-8745734052417186264.post-665048389372345588"
+date: "2012-07-21 07:46:00"
+updated: "2012-07-23 12:16:02"
+description: 
+blogger:
+    siteid: "8745734052417186264"
+    postid: "665048389372345588"
+    comments: "0"
+categories: [blog, kickstart, Oracle VM Manager, Linux, virtualbox, OVM, oracle]
+tags: [kickstart, Oracle VM Manager, Linux, virtualbox, OVM, oracle]
+author: 
+    name: "Alan Chalmers"
+    url: "https://plus.google.com/109008868852571463084?rel=author"
+    image: "//lh6.googleusercontent.com/-vRVdiWd12ak/AAAAAAAAAAI/AAAAAAAAHKc/wXgK4dFefp8/s512-c/photo.jpg"
+---
+
+<div class="css-full-post-content js-full-post-content">
+So part one finished up with a Virtualbox VM , two blank disk and the OEL CD image in the&nbsp;virtual&nbsp;CD drive.<br /><br />Fair warning I have taken some liberty with&nbsp;technical&nbsp;preciseness&nbsp;of handsfree, but it's&nbsp;pretty&nbsp;close. If some knows how I can second commands to the guest from the host command line let me know, virt-install maybe.<br /><br />So this is&nbsp;straight&nbsp;forward and I have covered some of these techniques in other posts like <a href="http://resilvered.blogspot.com.au/2011/11/linux-kickstart-for-solaris-admins-so.html">Kickstart for Solaris Admins</a>&nbsp;or my even older <a href="http://resilvered.blogspot.com.au/2011/01/reinstall-menu-option-grub.html">Grub menu reinstall</a>. Startup the VB guest it should boot off your attached CD/DVD image. and the welcome screen press TAB key<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="http://2.bp.blogspot.com/-0V77HOqFfQ8/UAkZqNJy8HI/AAAAAAAAAkc/RfXoG8TczHI/s1600/Screen+Shot+2012-07-20+at+6.39.56+PM.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="264" src="http://2.bp.blogspot.com/-0V77HOqFfQ8/UAkZqNJy8HI/AAAAAAAAAkc/RfXoG8TczHI/s320/Screen+Shot+2012-07-20+at+6.39.56+PM.png" width="320" /></a></div>Thanks to the bright red Oracle colours &nbsp;it's not so easy to see but you need to add the following line to your boot command after you have pressed TAB<span style="background-color: white;"></span><br /><pre>ks=http://dl.dropbox.com/u/2236361/kick/ovm.cfg</pre><br />This will install OEL 6.1 on the VM that was prepared in the <a href="http://resilvered.blogspot.com.au/2012/07/virtualbox-command-line-and-oracle-vm.html">part 1</a>&nbsp;and power if off when the installation is finished. Of&nbsp;course&nbsp;you may which to&nbsp;<a href="http://dl.dropbox.com/u/2236361/kick/ovm.cfg">download&nbsp;the ovm.cfg kickstart file</a> and make changes to suit your setup.<br /><br />Last bit to get ready for part 3 is to attach the VM Manager software image and boot the guest up again.<br /><br /><pre>VBoxManage storageattach "OVM" --storagectl "IDE Controller" --type dvddrive --device 0 --port 0 --medium "/Volumes/ISO/Oracle/OracleVM-Manager-3.1.1.iso"<br />VBoxManage startvm "OVM"<br /></pre>
+</div>

@@ -1,0 +1,24 @@
+---
+title: "How to configure iLOM ssh key for SUN T-series"
+layout: "post"
+permalink: "/2010/10/how-to-configure-ilom-ssh-key-for-sun-t.html"
+uuid: "5604795556247040898"
+guid: "tag:blogger.com,1999:blog-8745734052417186264.post-5604795556247040898"
+date: "2010-10-27 00:46:00"
+updated: "2010-10-27 00:52:19"
+description: 
+blogger:
+    siteid: "8745734052417186264"
+    postid: "5604795556247040898"
+    comments: "0"
+categories: [blog, sun, work, solaris]
+tags: [sun, work, solaris]
+author: 
+    name: "Alan Chalmers"
+    url: "https://plus.google.com/109008868852571463084?rel=author"
+    image: "//lh6.googleusercontent.com/-vRVdiWd12ak/AAAAAAAAAAI/AAAAAAAAHKc/wXgK4dFefp8/s512-c/photo.jpg"
+---
+
+<div class="css-full-post-content js-full-post-content">
+<pre>Note if you do not have at least Version 3.0.6.1.e r49743 firmware then you will run into this bug<br />6823488 Cannot add an SSH key for automatic password authentication.<br /><br /><span style="font-size:100%;"><span style="font-family: courier new;">> ssh root@ilom</span><br /><span style="font-family: courier new;">Password: </span><br /><span style="font-family: courier new;">Waiting for daemons to initialize...</span><br /><br /><span style="font-family: courier new;">Daemons ready</span><br /><br /><span style="font-family: courier new;">Sun(TM) Integrated Lights Out Manager</span><br /><br /><span style="font-family: courier new;">Version 3.0.6.1.e r49743</span><br /><br /><span style="font-family: courier new;">Copyright 2009 Sun Microsystems, Inc. All rights reserved.</span><br /><span style="font-family: courier new;">Use is subject to license terms.</span><br /><br /><span style="font-family: courier new;">-> cd /SP/users/admin/ssh/keys/1</span><br /><span style="font-family: courier new;">/SP/users/admin/ssh/keys/1</span><br /><br /><span style="font-family: courier new;">-> set load_uri=http://192.168.0.1/sshkey.pub</span><br /><span style="font-family: courier new;">Load successful.</span></span></pre>
+</div>

@@ -1,0 +1,24 @@
+---
+title: "reinstall menu option grub"
+layout: "post"
+permalink: "/2011/01/reinstall-menu-option-grub.html"
+uuid: "6839349568832416724"
+guid: "tag:blogger.com,1999:blog-8745734052417186264.post-6839349568832416724"
+date: "2011-01-15 11:39:00"
+updated: "2011-01-15 12:53:03"
+description: 
+blogger:
+    siteid: "8745734052417186264"
+    postid: "6839349568832416724"
+    comments: "0"
+categories: [blog, Linux]
+tags: [Linux]
+author: 
+    name: "Alan Chalmers"
+    url: "https://plus.google.com/109008868852571463084?rel=author"
+    image: "//lh6.googleusercontent.com/-vRVdiWd12ak/AAAAAAAAAAI/AAAAAAAAHKc/wXgK4dFefp8/s512-c/photo.jpg"
+---
+
+<div class="css-full-post-content js-full-post-content">
+So I have a couple of machine's I'm reinstalling on a regular basis as part of some on going work. Unfortunately PXE booting is not an option for them so it been a process of attaching a virtual CDROM image and then typing in a bunch of kickstart parameters at the boot menu. Well had enough, time to be a better way. I'm aware of the <a href="http://www.redhat.com/magazine/024oct06/features/kickstart/">"remote control"</a> for anaconda so it was time to make it work for me.<div><br /></div><div>OK here's how, I put a little script together to grab the images I need form the build server, setup the grub menu with a reinstall option that has all my parameters already in the place, great much less typing.</div><div><br /></div><div><div><span class="Apple-style-span"><pre><br />#!/bin/sh<br />#<br /># make_remote_install<br />#<br /># retrive anaconda kernel and create grub entry off remote<br /># reinstall<br />#<br />KSSERVER=192.168.0.102<br />ISO=oel5.5<br />BOOT=/boot<br />GRUBCONF=/etc/grub.conf<br />MYIP=`/sbin/ifconfig eth0 | grep "inet addr" | cut -d: -f2 | cut -d' ' -f1`<br />GATEWAY=`echo ${MYIP} | cut -d. -f1-3`.254<br />NETMASK=255.255.255.0<br />wget -O ${BOOT}/vmlinuz_remote http://${KSSERVER}/${ISO}/isolinux/vmlinuz<br />wget -O ${BOOT}/initrd_remote.img http://${KSSERVER}/${ISO}/isolinux/initrd.img<br /><br />echo "title Remote Install" >> ${GRUBCONF}<br />echo " root (hd0,0)" >> ${GRUBCONF}<br />echo " kernel /vmlinuz_remote ksdevice=eth0 ks=http://${KSSERVER}/ks_oel55.cfg ip=${MYIP} netmask=${NETMASK} gateway=${GATEWAY}" >> ${GRUBCONF}<br />echo " initrd /initrd_remote.img" >> ${GRUBCONF}<br /></pre><br /></span></div></div><div><br /></div><div>So this is particular setup it's using OEL 5.5 but of course this works on similar distro's and I have presumed a bunch of network stuff like gateway and netmask which I know to be always correct for my environment. Console access is not an issue either so I didn't need to go for the vnc option.  So add this to the end of your kickstart script to prepare for the next kickstart.</div><div><br /></div>
+</div>

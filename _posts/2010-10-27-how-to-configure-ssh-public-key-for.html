@@ -1,0 +1,24 @@
+---
+title: "How to configure ssh public key for XSCF"
+layout: "post"
+permalink: "/2010/10/how-to-configure-ssh-public-key-for.html"
+uuid: "125409553892383067"
+guid: "tag:blogger.com,1999:blog-8745734052417186264.post-125409553892383067"
+date: "2010-10-27 00:52:00"
+updated: "2010-10-27 01:01:56"
+description: 
+blogger:
+    siteid: "8745734052417186264"
+    postid: "125409553892383067"
+    comments: "0"
+categories: [blog, sun, solaris]
+tags: [sun, solaris]
+author: 
+    name: "Alan Chalmers"
+    url: "https://plus.google.com/109008868852571463084?rel=author"
+    image: "//lh6.googleusercontent.com/-vRVdiWd12ak/AAAAAAAAAAI/AAAAAAAAHKc/wXgK4dFefp8/s512-c/photo.jpg"
+---
+
+<div class="css-full-post-content js-full-post-content">
+<span style="font-family:courier new;">XSCF> showssh -c pubkey -u admin<br /></span><span style="font-family:courier new;">XSCF> setssh -c addpubkey -u admin</span><br /><span style="font-family:courier new;">Please input a public key:</span><br /><span style="font-family:courier new;">ssh-rsaAAAAB3NzaC1yc2EAAAABIwAAAIEAn5DZLAtDtan37waaAPkhU9b40q0CP5HCtqULaI+V0YU/iDpxeu0/RmFRgYSXdbniAr9wBAWn+vOUmwmyZJoIwgqCN88VJoa+U9g34B2WSMsBqIYleMsvQiBStnnkZgNY/OmDrmq1VU10H8QMw0kCmIQ3Nss7CmR0/E/9tJ6+b6E=</span><br /><br />looks like you need a Control D here<br /><br /><span style="font-family:courier new;">XSCF> showssh -c pubkey -u unixadmin</span><br /><span style="font-family:courier new;">Public key:</span><br /><span style="font-family:courier new;">     1    ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAIEAn5DZLAtDtan37waaAPkhU9b40q0CP5HCtqULaI+V0YU/iDpxeu0/RmFRgYSXdbniAr9wBAWn+vOUmwmyZJoIwgqCN88VJoa+U9g34B2WSMsBqIYleMsvQiBStnnkZgNY/OmDrmq1VU10H8QMw0kCmIQ3Nss7CmR0/E/9tJ6+b6E=</span>
+</div>

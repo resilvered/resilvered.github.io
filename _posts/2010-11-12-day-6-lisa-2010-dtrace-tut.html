@@ -1,0 +1,24 @@
+---
+title: "DAY 6 Lisa 2010 Dtrace tut"
+layout: "post"
+permalink: "/2010/11/day-6-lisa-2010-dtrace-tut.html"
+uuid: "9085582878957559953"
+guid: "tag:blogger.com,1999:blog-8745734052417186264.post-9085582878957559953"
+date: "2010-11-12 17:02:00"
+updated: "2010-11-13 00:36:29"
+description: 
+blogger:
+    siteid: "8745734052417186264"
+    postid: "9085582878957559953"
+    comments: "0"
+categories: [blog, LISA 2010, work, solaris]
+tags: [LISA 2010, work, solaris]
+author: 
+    name: "Alan Chalmers"
+    url: "https://plus.google.com/109008868852571463084?rel=author"
+    image: "//lh6.googleusercontent.com/-vRVdiWd12ak/AAAAAAAAAAI/AAAAAAAAHKc/wXgK4dFefp8/s512-c/photo.jpg"
+---
+
+<div class="css-full-post-content js-full-post-content">
+Jim Mauro's Dtrace tut<div><br /></div><div>Dynamic code modification , use mdb to show te zfs_read code (disassemble) and then run dtrace zfs_read with probe entry to show how the code (disassemble is modified) run mdb again.</div><div><br /></div><div>http://blogs.sun.com/bmc/ search out the 5th Birthday</div><div><br /></div><div>Good habit to add to dtrace script use a bail out</div><div><br /></div><div>tick-1sec</div><div>{</div><div><span class="Apple-tab-span" style="white-space:pre"> </span>exit(0);</div><div>}</div><div><br /></div><div>Allocates 4M memory per CPU , Thats's vcpu that Solaris sees.</div><div><br /></div><div>dtrace -l -m ufs,nfs | wc -l ( number of ufs and nfs probes.)</div><div><br /></div><div>pfexec dtrace -l -P ip  (list the probe of the ip provider)</div><div><br /></div><div><p style="margin: 0.0px 0.0px 0.0px 0.0px; font: 16.0px 'Courier New'"><br /><b>dtrace -n 'profile-997hz <span class="Apple-style-span"  style="color:#3333FF;">/arg0 &amp;&amp; curthread->t_pri != -1</span> { @[stack()] = count(); } tick-10sec { trunc(@, 10); printa(@); exit(0); }'</b></p><p style="margin: 0.0px 0.0px 0.0px 0.0px; font: 16.0px 'Courier New'"><b><span class="Apple-style-span"  style="color:#3366FF;">Are we in the kernel and no in the idle loop</span></b></p><p style="margin: 0.0px 0.0px 0.0px 0.0px; font: 16.0px 'Courier New'"><b><span class="Apple-style-span"  style="color:#3366FF;"><br /></span></b></p><p style="margin: 0.0px 0.0px 0.0px 0.0px; font: 16.0px 'Courier New'"><b><span class="Apple-style-span"  style="color:#3366FF;"><br /></span></b></p><p style="margin: 0.0px 0.0px 0.0px 0.0px; font: 16.0px 'Courier New'"><b><span class="Apple-style-span"  style="color:#3366FF;">fsstat zfs 1 (6/06 release of Solaris 10)</span></b></p></div>
+</div>

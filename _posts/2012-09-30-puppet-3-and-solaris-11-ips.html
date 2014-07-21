@@ -1,0 +1,26 @@
+---
+title: "Puppet 3 and Solaris 11 IPS"
+layout: "post"
+permalink: "/2012/09/puppet-3-and-solaris-11-ips.html"
+uuid: "5861695607969617171"
+guid: "tag:blogger.com,1999:blog-8745734052417186264.post-5861695607969617171"
+date: "2012-09-30 02:18:00"
+updated: "2012-09-30 02:18:14"
+description: 
+blogger:
+    siteid: "8745734052417186264"
+    postid: "5861695607969617171"
+    comments: "0"
+categories: [blog, Ruby, puppet, work, IPS, opensolaris, Solaris 11, solaris]
+tags: [Ruby, puppet, work, IPS, opensolaris, Solaris 11, solaris]
+author: 
+    name: "Alan Chalmers"
+    url: "https://plus.google.com/109008868852571463084?rel=author"
+    image: "//lh6.googleusercontent.com/-vRVdiWd12ak/AAAAAAAAAAI/AAAAAAAAHKc/wXgK4dFefp8/s512-c/photo.jpg"
+---
+
+<div class="css-full-post-content js-full-post-content">
+A recent post <a href="https://groups.google.com/forum/?fromgroups=#!topic/puppet-users/-mnIqWAPb8U">Solaris Packages for Puppet 3.0.0-rc7, Facter 1.6.0 and Hiera 1.0.0</a>&nbsp;on a puppet mailing list caught my eye.<br /><br />While gems has a&nbsp;nifty&nbsp;little package management system of it's own, &nbsp;it is possible be that your machines do not have direct access to the interent so&nbsp;having a local IPS repo is handy. I'll&nbsp;demonstrate&nbsp;how to add these packages to you own repository.&nbsp;This assumes you have already <a href="http://resilvered.blogspot.com.au/2012/06/how-to-create-mulitple-solaris.html">setup your&nbsp;own&nbsp;local repo</a>.<br /><br />First up retrive the IPS package file from the <a href="http://downloads.puppetlabs.com/solaris/">Puppet Labs download</a> site.<br /><br />
+<!-- more -->
+<pre>wget&nbsp;http://downloads.puppetlabs.com/solaris/facter@1.6.12,5.11-819.p5p<br />wget http://downloads.puppetlabs.com/solaris/hiera@1.0.0,5.11-116.p5p<br />wget http://downloads.puppetlabs.com/solaris/puppet@3.0.0,5.11-9211.p5p<br /></pre><br />Upload them to you local repository:<br /><br /><pre>pkgrecv -s ./facter\@1.6.12\,5.11-819.p5p -d /repo/software/ '*'<br />pkgrecv -s ./hiera\@1.0.0\,5.11-116.p5p -d /repo/software/ '*'<br />pkgrecv -s ./puppet\@3.0.0\,5.11-9211.p5p -d /repo/software/ '*'<br /></pre><br />And then restart the local repository, note for me I had to do disable and enable, a refresh did not appear to pickup the new publisher.<br /><br /><pre>svcadm disable svc:/application/pkg/server:homeips<br />svcadm enable svc:/application/pkg/server:homeips<br /><br />pkgrepo list -s http://192.168.0.30:82 -p puppetlabs.com<br />PUBLISHER      NAME                                          O VERSION<br />puppetlabs.com application/facter                              1.6.12,5.11-819:20120921T230613Z<br />puppetlabs.com application/hiera                               1.0.0,5.11-116:20120921T230233Z<br />puppetlabs.com system/management/puppet                        3.0.0,5.11-9211:20120921T230759Z<br /></pre><br />Once confirmed, add the publisher check again and install<br /><br /><pre>pkg set-publisher -p http://192.168.0.30:82/puppetlabs.com puppetlabs.com<br /><br />pkg list -n facter hiera puppet<br />NAME (PUBLISHER)                                  VERSION                    IFO<br />application/facter (puppetlabs.com)               1.6.12-819                 ---<br />application/hiera (puppetlabs.com)                1.0.0-116                  ---<br />system/management/puppet (puppetlabs.com)         3.0.0-9211                 ---<br /><br />pkg install facter hiera puppet<br /></pre><br />This would also install ruby-18 as that is a&nbsp;prerequisite&nbsp;package. So there you have <a href="http://puppetlabs.com/">Puppet </a>3.0 available in your own IPS repository.<br /><br />
+</div>

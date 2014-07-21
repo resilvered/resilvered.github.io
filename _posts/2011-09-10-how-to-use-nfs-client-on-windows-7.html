@@ -1,0 +1,24 @@
+---
+title: "How to use NFS client on Windows 7"
+layout: "post"
+permalink: "/2011/09/how-to-use-nfs-client-on-windows-7.html"
+uuid: "2825375349487359310"
+guid: "tag:blogger.com,1999:blog-8745734052417186264.post-2825375349487359310"
+date: "2011-09-10 03:51:00"
+updated: "2011-09-10 03:52:26"
+description: 
+blogger:
+    siteid: "8745734052417186264"
+    postid: "2825375349487359310"
+    comments: "0"
+categories: [blog, zfs, work, windows, virtualbox, Solaris 11]
+tags: [zfs, work, windows, virtualbox, Solaris 11]
+author: 
+    name: "Alan Chalmers"
+    url: "https://plus.google.com/109008868852571463084?rel=author"
+    image: "//lh6.googleusercontent.com/-vRVdiWd12ak/AAAAAAAAAAI/AAAAAAAAHKc/wXgK4dFefp8/s512-c/photo.jpg"
+---
+
+<div class="css-full-post-content js-full-post-content">
+<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="http://3.bp.blogspot.com/-xbNSK-5TG-s/Tmrdu9JKenI/AAAAAAAAAU0/UCvx1ApLeW4/s1600/rss_icon_128.png" imageanchor="1" style="clear: left; float: left; margin-bottom: 1em; margin-right: 1em;"><img border="0" src="http://3.bp.blogspot.com/-xbNSK-5TG-s/Tmrdu9JKenI/AAAAAAAAAU0/UCvx1ApLeW4/s1600/rss_icon_128.png" /></a></div>So mostly, if you haven't figure that out from reading some of my other stuff, this is a UNIX household Mac OSX , Solaris and some Linux. I&nbsp;stopped&nbsp;using CIFS at home sometime ago it was often painful and had some odd side effects with ACLs on my ZFS file server that I honestly just can't be bothered trying to figure out.<br /><br />So I have a Windows 7VM that i need to use for some occasional work and today is one of those days. I need an iso image of my file server and Microsoft has finally seen fit to included a NS client, so time to give it a spin.<br /><br />First up you need to install NFS services, so&nbsp;that would be&nbsp;<span class="Apple-style-span" style="font-family: 'Courier New', Courier, monospace;">Control Panel-&gt;Programs-&gt;Programs and Features-&gt; Turn Windows feature on or off</span>&nbsp;and find Services for NFS and check those boxes<br /><br />Drop to a DOS cmd&nbsp;prompt&nbsp;and while the mount command doesn't&nbsp;support&nbsp;the standard UNIX command syntax, that would be too easy, but it does work like this<br /><br /><span class="Apple-style-span" style="font-family: 'Courier New', Courier, monospace;">mount -u:username \\server\share Z:</span><br /><br />Your in&nbsp;business&nbsp;now and I don't need to add SMB shares to my fileserver<br /><br /><br />
+</div>

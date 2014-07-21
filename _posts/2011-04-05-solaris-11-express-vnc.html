@@ -1,0 +1,79 @@
+---
+title: "Solaris 11 Express VNC"
+layout: "post"
+permalink: "/2011/04/solaris-11-express-vnc.html"
+uuid: "5342578615698159409"
+guid: "tag:blogger.com,1999:blog-8745734052417186264.post-5342578615698159409"
+date: "2011-04-05 12:46:00"
+updated: "2011-04-08 04:43:41"
+description: 
+blogger:
+    siteid: "8745734052417186264"
+    postid: "5342578615698159409"
+    comments: "3"
+categories: [blog, work, opensolaris, Solaris 11, solaris]
+tags: [work, opensolaris, Solaris 11, solaris]
+author: 
+    name: "Alan Chalmers"
+    url: "https://plus.google.com/109008868852571463084?rel=author"
+    image: "//lh6.googleusercontent.com/-vRVdiWd12ak/AAAAAAAAAAI/AAAAAAAAHKc/wXgK4dFefp8/s512-c/photo.jpg"
+---
+
+<div class="css-full-post-content js-full-post-content">
+<a href="http://t1.gstatic.com/images?q=tbn:ANd9GcTpH_4hdgyQirRFTXOCxZS7PMf5qV6qgTIxLrrK6OzzO9VHEuoIAA" onblur="try {parent.deselectBloggerImageGracefully();} catch(e) {}"><img style="float:left; margin:0 10px 10px 0;cursor:pointer; cursor:hand;width: 125px; height: 124px;" src="http://t1.gstatic.com/images?q=tbn:ANd9GcTpH_4hdgyQirRFTXOCxZS7PMf5qV6qgTIxLrrK6OzzO9VHEuoIAA" border="0" alt="" /></a><br />Okay , not entirely sure why yet but I though I'd like to get VNC server configured on my Solaris machines, perhaps it's with the arrival of the AppleTV 2 in the house freeing up the trusty mac mini workhorse to go back to desktop duties after the last 3+ year as a <a href="http://www.plexapp.com/">Plex app media player</a>, anyway on to the task at hand.<div><br /></div><div>The is plenty of information on the web about configuring VNC server on Solaris, most of  it misleading and of little use, especially in the context of Solaris 11 express. For the record I'm running 151a updated to SRU4 although I suspect that the SRU is of little relevance.</div><div><br /></div><div><pre>vi /etc/gdm/custom.conf<br />[xdmcp]<br />Enable=true</pre></div><div><br /></div><div>This is the only entry you need here,trust me.</div><div><br /></div><div><pre>svccfg -s xvnc-inetd<br />setprop inetd_start/exec = astring: "/usr/bin/Xvnc -geometry 1920x1200 -inetd -query localhost -once passwordFile=/home/alan/.vnc/passwd<br />setprop inetd/wait = boolean: true<br />end<br /><br /></pre>So what have we done here, change the default geometry for VNC windows because I like it a little larger, set a password file to authenticate against when I make the connection, and lastly make my VNC session persistent so when I disconnect I can just be right back to my session. A  little side not the password file is populate by running the <span class="Apple-style-span"><b>vncpasswd </b></span>command.</div><div><br /></div><div>Next we need to restart, refresh or enable the stuff we have just tampered with<br /><pre>svcadm refresh xvnc-inetd</pre></div><div>or </div><div><pre>svcadm enable xvnc-inetd</pre></div><div>if you haven't turn it on already</div><div><br /></div><div>also restart gdm</div><div><pre>svcadm restart gdm</pre></div><div>Now the two biggest issue I had one, the built in screen sharing app on the Mac only seems to like other Mac's is probably nobbled by Apple and I recall from someplace else it's outdated. So go get a VNC client that works for you on your desktop platform, I used Chcicken of VNC seemed to the job.</div><div><br /></div><div>Second problem Gnome. I would connect and the connection would crash, not sure why but running <b>gnome-cleanup</b> fixed the problem</div>
+</div>
+<div class="css-full-comments-content js-full-comments-content">
+<div class="css-full-comment js-full-comment">
+  <div class="css-comment-user-link js-comment-user-link">
+  <a href="http://www.blogger.com/profile/12579891299240408029">
+  <div class="css-comment-name js-comment-name">
+    4saken
+  </div>
+  </a>
+  <div class="css-comment-date js-comment-date">
+    2011-05-18T01:50:34.234Z
+  </div>
+  </div>
+  <div class="css-comment-content js-comment-content">
+    Thanks, very helpful!
+  </div>
+  <br/>
+</div>
+<div class="css-full-comment js-full-comment">
+  <div class="css-comment-user-link js-comment-user-link">
+  <a href="http://www.blogger.com/profile/03056469086382921918">
+  <div class="css-comment-name js-comment-name">
+    Eric Canham
+  </div>
+  </a>
+  <div class="css-comment-date js-comment-date">
+    2012-02-22T19:12:09.837Z
+  </div>
+  </div>
+  <div class="css-comment-title js-comment-title">
+    hey al
+for some reason when i enter
+setprop inetd/...
+  </div>
+  <div class="css-comment-content js-comment-content">
+    hey al<br />for some reason when i enter<br />setprop inetd/wait = boolean: true<br /><br />and then restart the gdm service, it crashes. changing the value back to false fixes this. any idea why this is happening?
+  </div>
+  <br/>
+</div>
+<div class="css-full-comment js-full-comment">
+  <div class="css-comment-user-link js-comment-user-link">
+  <a href="http://www.blogger.com/profile/08832268528937656442">
+  <div class="css-comment-name js-comment-name">
+    Chris
+  </div>
+  </a>
+  <div class="css-comment-date js-comment-date">
+    2013-01-10T22:22:54.301Z
+  </div>
+  </div>
+  <div class="css-comment-content js-comment-content">
+    Does this still work for you on Solaris 11.1? I can&#39;t get it to connect and I don&#39;t see it logging error anywhere.
+  </div>
+  <br/>
+</div>
+</div>

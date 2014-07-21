@@ -1,0 +1,29 @@
+---
+title: "How to create Mulitple Solaris Repositories"
+layout: "post"
+permalink: "/2012/06/how-to-create-mulitple-solaris.html"
+uuid: "6666483317817847642"
+guid: "tag:blogger.com,1999:blog-8745734052417186264.post-6666483317817847642"
+date: "2012-06-24 06:02:00"
+updated: "2012-09-29 04:57:51"
+description: 
+blogger:
+    siteid: "8745734052417186264"
+    postid: "6666483317817847642"
+    comments: "0"
+categories: [blog, SMF, IPS, Solaris 11, solaris]
+tags: [SMF, IPS, Solaris 11, solaris]
+author: 
+    name: "Alan Chalmers"
+    url: "https://plus.google.com/109008868852571463084?rel=author"
+    image: "//lh6.googleusercontent.com/-vRVdiWd12ak/AAAAAAAAAAI/AAAAAAAAHKc/wXgK4dFefp8/s512-c/photo.jpg"
+location:
+    name: "Melbourne VIC, Australia"
+    latitude: "-37.8136111"
+    longitude: "144.9630556"
+    box: [-37.838699600000005, 144.9235736, -37.7885226, 145.00253759999998]
+---
+
+<div class="css-full-post-content js-full-post-content">
+Solaris 11 repo setup but you want to have your own repo serving up own home grown packages, separate from your main Solaris 11 image repository. Actually I'd like an extra two repo's I want a dev repo that to test my packaging abilities and a "release" one when I'm ready to publish. Mostly becuase there doesn't seem to be a straight forward way to remove packages from a repo and my packaging skills are work in progress. <br /><br />So here goes , a new filesystem first <br /><pre>zfs create lake/repo/homedev<br />zfs list -r lake/repo<br />NAME                           USED  AVAIL  REFER  MOUNTPOINT<br />lake/repo                     18.2G   439G    26K  /repo<br />lake/repo/Solaris11           7.07G   439G  7.07G  /repo/Solaris11<br />lake/repo/Solaris_11_Express  10.5G   439G  10.2G  /repo/Solaris_11_Express<br />lake/repo/homedev             45.9M   439G  45.9M  /repo/homedev<br /></pre><br />Check which port my default repo is on <br /><pre>svccfg -s pkg/server listprop pkg/port<br />pkg/port count       81</pre>Create my new repo <br /><pre>pkgrepo create /repo/homedev<br />pkgrepo set -s /repo/homedev  publisher/prefix=homedev</pre>Create a new SMF service for my new repo <br /><pre>svccfg -s pkg/server add homedev<br />svccfg -s pkg/server:homedev addpg pkg application <br />svccfg -s pkg/server:homedev setprop pkg/port=82<br />svccfg -s pkg/server:homedev setprop pkg/inst_root=/repo/homedev/ <br />svccfg -s pkg/server:homedev setprop pkg/readonly=false<br />svccfg -s pkg/server:homedev addpg general framework<br />svccfg -s pkg/server:homedev addpropvalue general/complete astring: homedev<br />svccfg -s pkg/server:homedev addpropvalue general/enabled boolean: true<br />svcadm refresh pkg/server:homedev<br />svcadm enable pkg/server:homedev</pre><br />All ready to go now check out <a href="http://localhost:82/">http://localhost:82</a> and should be running. Note reaonly=flase so this is a writeable IPS repo which is what I'm after to install my packages in.
+</div>

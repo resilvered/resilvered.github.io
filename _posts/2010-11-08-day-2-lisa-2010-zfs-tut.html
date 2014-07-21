@@ -1,0 +1,24 @@
+---
+title: "DAY 2 LISA 2010 ZFS tut"
+layout: "post"
+permalink: "/2010/11/day-2-lisa-2010-zfs-tut.html"
+uuid: "2218878316974050344"
+guid: "tag:blogger.com,1999:blog-8745734052417186264.post-2218878316974050344"
+date: "2010-11-08 18:49:00"
+updated: "2010-11-09 01:17:07"
+description: 
+blogger:
+    siteid: "8745734052417186264"
+    postid: "2218878316974050344"
+    comments: "0"
+categories: [blog, LISA 2010, zfs, solaris]
+tags: [LISA 2010, zfs, solaris]
+author: 
+    name: "Alan Chalmers"
+    url: "https://plus.google.com/109008868852571463084?rel=author"
+    image: "//lh6.googleusercontent.com/-vRVdiWd12ak/AAAAAAAAAAI/AAAAAAAAHKc/wXgK4dFefp8/s512-c/photo.jpg"
+---
+
+<div class="css-full-post-content js-full-post-content">
+Day two the rain has stopped a little bit of Californian sunshine.<div><br /></div><div>Doing Richard's ZFS tut. 2 thumbs up so far.</div><div><br /></div><div>Would you believe I didn't know you could set the number of copies zfs keeps of a file, cool learning stuff.</div><div><br /></div><div>My random notes that won't make sense to anyone but me :-)</div><div><br /></div><div>zfs set copies=# name</div><div><br /></div><div><a href="http://www.richardelling.com/Home/scripts-and-programs-1/zilstat">zilstat</a></div><div><br /></div><div>zpool set dedupditto=2 zwimming</div><div>2 turns out to be a good setting</div><div>zpool set dedup=on,verify zwimming</div><div>By deafult verify is not on, always turn on verify</div><div>zdb -DD rpool</div><div>show depup DDT</div><div>zdb -S rpool</div><div>Simulate dedup DDT</div><div>zfs send -DR zwimming/stuff</div><div>Send with dedup</div><div><br /></div><div>zpool history rpool ( -l option to show user info)</div><div><br /></div><div><a href="http://tm.fidosoft.org/index.php/2009/05/zfs-send-and-zfs-receive-with-mbuffer-examples-on-x4500/">zfs send and receive with mbuffer</a></div><div><br /></div><div>Can have user defined properties.</div><div><br /></div><div>vscan property can point zfs at an icap server for Virus scanning<a href="http://wiki.genunix.org/wiki/index.php/Implementing_vscan_service_with_ClamAV_on_ZFS"> http://wiki.genunix.org/wiki/index.php/Implementing_vscan_service_with_ClamAV_on_ZFS</a></div><div><br /></div><div>zfs_vdev_max_pending perhaps 2 for SATA perhaps 4000 for large hardware raid arrays?</div>
+</div>

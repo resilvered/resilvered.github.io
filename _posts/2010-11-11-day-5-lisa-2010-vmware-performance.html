@@ -1,0 +1,24 @@
+---
+title: "DAY 5 Lisa 2010 Vmware performance notes"
+layout: "post"
+permalink: "/2010/11/day-5-lisa-2010-vmware-performance.html"
+uuid: "5688944106086656157"
+guid: "tag:blogger.com,1999:blog-8745734052417186264.post-5688944106086656157"
+date: "2010-11-11 16:54:00"
+updated: "2010-11-12 01:13:50"
+description: 
+blogger:
+    siteid: "8745734052417186264"
+    postid: "5688944106086656157"
+    comments: "0"
+categories: [blog, LISA 2010, work, vmware]
+tags: [LISA 2010, work, vmware]
+author: 
+    name: "Alan Chalmers"
+    url: "https://plus.google.com/109008868852571463084?rel=author"
+    image: "//lh6.googleusercontent.com/-vRVdiWd12ak/AAAAAAAAAAI/AAAAAAAAHKc/wXgK4dFefp8/s512-c/photo.jpg"
+---
+
+<div class="css-full-post-content js-full-post-content">
+RMC ESX Performance and Tuning<div><br /></div><div>vmx nic devices are the para virtualised NIC devices should always be used over the the e1000 intel devices better performance.</div><div><br /></div><div>disable memory scrubber in Solaris guests on ESX</div><div><br /></div><div><a href="http://www.vmware.com/files/pdf/Timekeeping-In-VirtualMachines.pdf">Time keeping in a virtual machin</a>e. And theis KB article <a href="http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&amp;cmd=displayKC&amp;externalId=1005802">http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&amp;cmd=displayKC&amp;externalId=1005802</a></div><div><br /></div><div>esxtop resxtop remote version<a href="http://labs.vmware.com/flings/esxplot"> esxplot fling</a></div><div><br /></div><div>exstop <a href="http://communities.vmware.com/docs/DOC-9279">guide</a>.</div><div><br /></div><div>%USED time %RDY time %CSTP( fro SMP activity) %SWPWT</div><div><br /></div><div>memory ballooning , stuff JVMs and large Oracle SGA's set memory reservation of the guest to the size of the JVM or SGA to stop the ballooning causing the guest to page or swap out to disk, add Solaris running zfs to JVM and Oracle list. There is a <a href="http://www.vmware.com/resources/techresources/1087">paper</a> that talks about JAVA stuff specifically , go find it.</div><div><br /></div><div>memory thin provision but don't over commit ideal performance </div><div><br /></div><div>most common page of memory among all guest is a page of zeros :-)</div><div><br /></div><div>If there is a memory shortage that is effecting you now the look at the %SWPWT<span class="Apple-style-span"   style="  color: rgb(51, 51, 51); font-family:Arial, Helvetica, sans-serif;font-size:12px;"> </span>Swap wait in esxtop, added in esx 4.0</div><div><br /></div><div><a href="http://blogs.vmware.com/performance/">vmware performance blog</a></div><div><br /></div><div>Second Gen Virtual Hardware assist slightly reduces the esx overhead.</div><div><br /></div><div>Sotfwate iscsi and nfs cost ~ 10% over head in CPU over Fibre, use Jumbo frames for ethernet connected storage ( nfs &amp; iscsi)</div><div><br /></div><div>use pvscisi for windows and linux guests. para virtualized guest was able to increase IOPs from 20,000 to 120,000 per guest, available in 4.0 and up</div><div><br /></div><div>NFS latency stats added in VSphere 4.1.</div><div><br /></div><div>vscsiStats /usr/lib/vmware/bin</div><div><br /></div><div>vprobes dtrace like tool for ESX.</div><div><br /></div><div>Look out for  preconfigured vm with io tools for testing jetstream filebench orion etc.</div><div>Type of NICs can make a difference , get engaged early to select the right NIC features.</div>
+</div>

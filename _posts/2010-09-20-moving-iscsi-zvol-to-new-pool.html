@@ -1,0 +1,24 @@
+---
+title: "Moving an iscsi zvol to a new pool"
+layout: "post"
+permalink: "/2010/09/moving-iscsi-zvol-to-new-pool.html"
+uuid: "1665536968019378089"
+guid: "tag:blogger.com,1999:blog-8745734052417186264.post-1665536968019378089"
+date: "2010-09-20 14:01:00"
+updated: "2010-10-17 07:58:43"
+description: 
+blogger:
+    siteid: "8745734052417186264"
+    postid: "1665536968019378089"
+    comments: "0"
+categories: [blog, zfs, iscsi]
+tags: [zfs, iscsi]
+author: 
+    name: "Alan Chalmers"
+    url: "https://plus.google.com/109008868852571463084?rel=author"
+    image: "//lh6.googleusercontent.com/-vRVdiWd12ak/AAAAAAAAAAI/AAAAAAAAHKc/wXgK4dFefp8/s512-c/photo.jpg"
+---
+
+<div class="css-full-post-content js-full-post-content">
+Been working on fixing my 4K sector disk write performance issue, will post something on that later. So I have create a new zpool and after zfs send | zfs receive on the various zfs volumes and filesystem I was left to figure out how to move my iscsi guid's as follows<div><br /></div><div><div><span class="Apple-style-span">sbdadm list-lu</span></div><div><span class="Apple-style-span"><br /></span></div><div><span class="Apple-style-span">Found 4 LU(s)</span></div><div><span class="Apple-style-span"><br /></span></div><div><span class="Apple-style-span">              GUID                    DATA SIZE           SOURCE</span></div><div><span class="Apple-style-span">--------------------------------  -------------------  ----------------</span></div><div><span class="Apple-style-span">600144f03048810000004c356bc50001  21474836480          /dev/zvol/rdsk/lake/iscsi/windows2008</span></div><div><span class="Apple-style-span">600144f03048810000004c74b73f0001  10737418240          /dev/zvol/rdsk/lake/iscsi/sol10</span></div><div><span class="Apple-style-span">600144f03048810000004c90909d0001  10737418240          /dev/zvol/rdsk/lake/iscsi/winxp</span></div><div><span class="Apple-style-span">600144f03048810000004c91cc540002  21474836480          /dev/zvol/rdsk/lake/iscsi/sol10u9</span></div></div><div><br /></div><div>So these four have been moved to a new zpool so I tried delete-lu and import-lu</div><div><div><br /></div><div><span class="Apple-style-span">stmfadm delete-lu 600144f03048810000004c90909d0001</span></div><div><span class="Apple-style-span">stmfadm import-lu /dev/zvol/rdsk/lake2/iscsi/winxp</span></div><div><span class="Apple-style-span">stmfadm: meta file error</span></div></div><div><br /></div><div>Hmmm not what was after but try this on instead using the guid allocated previously</div><div><br /></div><div><div><span class="Apple-style-span">stmfadm create-lu --lu-prop guid=600144f03048810000004c90909d0001 /dev/zvol/rdsk/lake2/iscsi/winxp</span></div><div><span class="Apple-style-span">Logical unit created: 600144F03048810000004C90909D0001</span></div><div><span class="Apple-style-span">stmfadm add-view 600144F03048810000004C90909D0001</span></div></div><div><br /></div><div>Done works the Virtual box machine this is attached to runs no problems</div><div><br /></div>
+</div>

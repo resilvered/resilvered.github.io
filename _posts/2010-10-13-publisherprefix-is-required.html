@@ -1,0 +1,24 @@
+---
+title: "publisher.prefix is required"
+layout: "post"
+permalink: "/2010/10/publisherprefix-is-required.html"
+uuid: "671916750299668157"
+guid: "tag:blogger.com,1999:blog-8745734052417186264.post-671916750299668157"
+date: "2010-10-13 10:13:00"
+updated: "2010-10-17 07:58:42"
+description: 
+blogger:
+    siteid: "8745734052417186264"
+    postid: "671916750299668157"
+    comments: "0"
+categories: [blog, IPS, opensolaris, openindiana]
+tags: [IPS, opensolaris, openindiana]
+author: 
+    name: "Alan Chalmers"
+    url: "https://plus.google.com/109008868852571463084?rel=author"
+    image: "//lh6.googleusercontent.com/-vRVdiWd12ak/AAAAAAAAAAI/AAAAAAAAHKc/wXgK4dFefp8/s512-c/photo.jpg"
+---
+
+<div class="css-full-post-content js-full-post-content">
+<div>pkg.depotd: repository configuration error: publisher.prefix is required</div><p></p><div>Standing a new IPS server , don't forget to set the publisher.prefix. A lot of blog posts and doco pre-dates this addition</div><div><br /></div><div><span class="Apple-style-span">pfexec svccfg -s pkg/server "setprop pkg/port=10000"</span></div><div><div><span class="Apple-style-span">pfexec svccfg -s pkg/server "setprop pkg/inst_root=/export/ipsrepo"</span></div><div><span class="Apple-style-span"><b>pkgsend -s file:///export/ipsrepo create-repository --set-property publisher.prefix=myrepo</b></span></div><div><span class="Apple-style-span">pfexec svcadm enable pkg/server</span></div><div><span class="Apple-style-span">pfexec svcadm restart pkg/server</span></div></div><div><br /></div><div><br /></div><div><br /></div><div> </div><div><br /></div>
+</div>

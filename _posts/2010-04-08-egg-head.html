@@ -1,0 +1,24 @@
+---
+title: "Egg head"
+layout: "post"
+permalink: "/2010/04/egg-head.html"
+uuid: "6371583271396370577"
+guid: "tag:blogger.com,1999:blog-8745734052417186264.post-6371583271396370577"
+date: "2010-04-08 06:51:00"
+updated: "2010-10-17 07:58:43"
+description: 
+blogger:
+    siteid: "8745734052417186264"
+    postid: "6371583271396370577"
+    comments: "0"
+categories: [blog, opensolaris, transmission, flexget]
+tags: [opensolaris, transmission, flexget]
+author: 
+    name: "Alan Chalmers"
+    url: "https://plus.google.com/109008868852571463084?rel=author"
+    image: "//lh6.googleusercontent.com/-vRVdiWd12ak/AAAAAAAAAAI/AAAAAAAAHKc/wXgK4dFefp8/s512-c/photo.jpg"
+---
+
+<div class="css-full-post-content js-full-post-content">
+<a onblur="try {parent.deselectBloggerImageGracefully();} catch(e) {}" href="http://4.bp.blogspot.com/_EHWk6PkydBw/S77ZYBx7aEI/AAAAAAAAACA/a_rRLgNJ_Hg/s1600/trac_bullet.png"><img style="margin: 0pt 10px 10px 0pt; float: left; cursor: pointer; width: 60px; height: 73px;" src="http://4.bp.blogspot.com/_EHWk6PkydBw/S77ZYBx7aEI/AAAAAAAAACA/a_rRLgNJ_Hg/s200/trac_bullet.png" alt="" id="BLOGGER_PHOTO_ID_5458038805237557314" border="0" /></a><br />Ok I'm a total Python newbie. I need to install <a href="http://www.flexget.com/">flexget</a> to use with my new <a href="http://www.transmissionbt.com/">transmission</a> setup, it's a python based app and comes as an .egg file. Seems the best way to install these is with something call easy_install.<br /><pre>pkg search -l easy_install</pre>Shows <span style="font-family:courier new;">easy_install</span> is part of the python setup tools package. So just go ahead and install that.<br /><pre>pfexec pkg install pkg:/library/python-2/setuptools-26</pre>Then use easy_install to install the flexget along with all it's dependencies.<br /><pre>pfexec easy_install http://download.flexget.com/unstable/FlexGet-1.0r1226-py2.6.egg</pre>I'm going to be using the transmissionrpc module so I need to install that to.<br /><pre>pfexec easy_install transmissionrpc</pre>Thats it done, flexget installed. Check out the <a href="http://www.flexget.com/">flexget site</a> to configure it for your needs.
+</div>

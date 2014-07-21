@@ -1,0 +1,29 @@
+---
+title: "VirtualBox command line and Oracle VM Manager 3.1.1 part 1"
+layout: "post"
+permalink: "/2012/07/virtualbox-command-line-and-oracle-vm.html"
+uuid: "9112146061369802391"
+guid: "tag:blogger.com,1999:blog-8745734052417186264.post-9112146061369802391"
+date: "2012-07-09 13:44:00"
+updated: "2012-07-09 13:44:18"
+description: 
+blogger:
+    siteid: "8745734052417186264"
+    postid: "9112146061369802391"
+    comments: "0"
+categories: [blog, Oracle VM Manager, Linux, virtualbox, VirtualBox command line, OVM]
+tags: [Oracle VM Manager, Linux, virtualbox, VirtualBox command line, OVM]
+author: 
+    name: "Alan Chalmers"
+    url: "https://plus.google.com/109008868852571463084?rel=author"
+    image: "//lh6.googleusercontent.com/-vRVdiWd12ak/AAAAAAAAAAI/AAAAAAAAHKc/wXgK4dFefp8/s512-c/photo.jpg"
+location:
+    name: "Melbourne VIC, Australia"
+    latitude: "-37.8136111"
+    longitude: "144.9630556"
+    box: [-37.838699600000005, 144.9235736, -37.7885226, 145.00253759999998]
+---
+
+<div class="css-full-post-content js-full-post-content">
+Rather than wait until I have the whole thing polished I thought I'd do a multipart entry on building Oracle VM Manager VM and installing the software. Now the previous version 3.0.3 had a VirtualBox <a href="http://www.oracle.com/technetwork/server-storage/vm/template-1482544.html">template available</a>. The current version 3.1.1 doesn't, at least not that I can find, so this is a kinda of roll your own template.<br /><br />Tools used for this job:<br /><ul><li>Virtual Box 4.1.8 Oracle VM&nbsp;</li><li>Manager ISO 3.1.1&nbsp;</li><li>OEL R6U1 ISO</li></ul><div><br /></div><div>Oh and somewhere to run VirtualBox, in this case my Mac Mini</div><div><br /></div><div>Setting&nbsp;up the VM guest I based it off the original 3.0.3 VM template so 64 bit Linux 4GB Ram and two disks one for the OS and one to install the software on with a bridged interface. Now I could say go away and do that, but where would the fun in that be. Lets script it and create from the command line:</div><div><br /></div><pre>#!/bin/sh<br />#<br /># create_ovm_vm create a VirtualBox vm suitable for installing OracleVM Manager software<br />#<br />home=~<br />vmname=OVM<br />vmstorage="${home}/VirtualBox VMs/${vmname}"<br />bootimage="/ISO/Oracle/OracleLinux-R6-U1-Server-x86_64-dvd.iso"<br />#<br /># Use "VBoxManage list bridgedifs" to find the names of your available interfaces<br />#<br />nic="en0: Ethernet" # Mac mini<br />#nic="e1000g0 - Intel PRO/1000 Gigabit Ethernet" # Solaris Box<br />#nic="en1: AirPort" # Macbook AirPort<br />#<br />VBoxManage createvm --name "${vmname}" --register --ostype Oracle_64<br />VBoxManage modifyvm "${vmname}" --memory 2048  --nic1 bridged --bridgeadapter1 "${nic}" --rtcuseutc on --boot1 none<br />VBoxManage createhd --filename "${vmstorage}/${vmname}-disk01.vdi" --size 15000 <br />VBoxManage createhd --filename "${vmstorage}/${vmname}-disk02.vdi" --size 10000 <br />VBoxManage storagectl "${vmname}" --name "IDE Controller" --add ide --controller PIIX4 --hostiocache on<br />VBoxManage storageattach "${vmname}" --storagectl "IDE Controller" --type dvddrive --device 0 --port 0 --medium "${bootimage}"<br />VBoxManage storagectl "${vmname}" --name "SATA Controller" --add sata --controller IntelAhci --sataportcount 2 --bootable on --hostiocache on<br />VBoxManage storageattach "${vmname}" --storagectl "SATA Controller" --type hdd --port 0 --medium "${vmstorage}/${vmname}-disk01.vdi"<br />VBoxManage storageattach "${vmname}" --storagectl "SATA Controller" --type hdd --port 1 --medium "${vmstorage}/${vmname}-disk02.vdi"<br />VBoxManage showvminfo ${vmname} --details<br /></pre><br />Make sure for your build you adjust the the location of the dvd install image, and part 2 will talk about the handsfree install, along with the name of your bridged interface,<span style="font-family: 'Courier New', Courier, monospace;"><b>VBoxManage list bridgedifs</b></span> to find that one out. &nbsp;To save the typing or cut and paste error the script can be <a href="https://dl.dropbox.com/u/2236361/scripts/create_ovm_vm.sh">downloaded from here</a>.<br /><br />Note the command line interface for VBoxMange has&nbsp;changed&nbsp;a bit over the version so if you have a really old version this may not work. Of course if you find&nbsp;yourself&nbsp;looking at this years after I wrote it hopefully the syntax is still&nbsp;compatible&nbsp;with newer releases.<br /><br />Part 2 will cover the handsfree build of the guest to a suitable config for installing Oracle VM Manager 3.1.1<br /><br />
+</div>

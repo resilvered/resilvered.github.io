@@ -1,0 +1,24 @@
+---
+title: "Daemon gear"
+layout: "post"
+permalink: "/2010/04/daemon-gear.html"
+uuid: "7942627386044760945"
+guid: "tag:blogger.com,1999:blog-8745734052417186264.post-7942627386044760945"
+date: "2010-04-09 10:06:00"
+updated: "2010-10-17 07:58:43"
+description: 
+blogger:
+    siteid: "8745734052417186264"
+    postid: "7942627386044760945"
+    comments: "0"
+categories: [blog, SMF, opensolaris, transmission]
+tags: [SMF, opensolaris, transmission]
+author: 
+    name: "Alan Chalmers"
+    url: "https://plus.google.com/109008868852571463084?rel=author"
+    image: "//lh6.googleusercontent.com/-vRVdiWd12ak/AAAAAAAAAAI/AAAAAAAAHKc/wXgK4dFefp8/s512-c/photo.jpg"
+---
+
+<div class="css-full-post-content js-full-post-content">
+<a onblur="try {parent.deselectBloggerImageGracefully();} catch(e) {}" href="http://2.bp.blogspot.com/_EHWk6PkydBw/S78EoMUE6_I/AAAAAAAAACI/yGiqoC32JPk/s1600/freebsd-logo.png"><img style="margin: 0pt 10px 10px 0pt; float: left; cursor: pointer; width: 109px; height: 108px;" src="http://2.bp.blogspot.com/_EHWk6PkydBw/S78EoMUE6_I/AAAAAAAAACI/yGiqoC32JPk/s200/freebsd-logo.png" alt="" id="BLOGGER_PHOTO_ID_5458086361943043058" border="0" /></a><br />Moving right along in the continued migration to  transmission, its in and running in deamon mode on the command line, flexget is in and tested. Just need to add flexget to cron and make sure transmission-deamon starts at  system bootup. Ok SMF script needed, being an inherently lazy unix guy , I'll just google that and  and yes number one with the bullet I find <a href="http://www.4amlunch.net/SMF/transmission-daemon/">this</a> over on 4amlunch.net thanks to wonko. A  quick mod on the <span style="font-family:courier new;">TRANSMISSION_HOME</span> to suit my local setup and and transmission-daemon is running from SMF. flexget cronjob added all should be good to go. I'll wait an hour let the cron job run it's course and see what we get.
+</div>
