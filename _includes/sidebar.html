@@ -26,11 +26,13 @@
         {% endif %}
       {% endfor %}
 
-      <a class="sidebar-nav-item" href="{{ site.github.repo }}/archive/v{{ site.version }}.zip">Download</a>
-      <a class="sidebar-nav-item" href="{{ site.github.repo }}">GitHub project</a>
-      <span class="sidebar-nav-item">Currently v{{ site.version }}</span>
-    </nav>
-
+      </nav>
+      <div id="social-bar">
+        <a href="http://www.linkedin.com/in/alanchalmers/" title="Alan Chalmers on LinkedIn" rel="me"><i class="fa fa-linkedin-square fa-2x"></i></a>
+        <a href="https://github.com/AlanC_au" title="Alan Chalmers on GitHub" rel="me"><i class="fa fa-github-square fa-2x"></i></a> 
+        <a href="https://twitter.com/bigal" title="Alan Chalmers on Twitter" rel="me"><i class="fa fa-twitter-square fa-2x"></i></a>
+       <a href="https://plus.google.com/+AlanChalmers/" title="Alan Chalmers on Google+" rel="me"><i class="fa fa-google-plus-square fa-2x"></i></a> 
+      </div>    
     <p>&copy; {{ site.time | date: '%Y' }}. All rights reserved.</p>
   </div>
 </div>
