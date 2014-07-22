@@ -90,7 +90,7 @@ Compress and export the image the base box image.
 #### The wrap up
 Once your config file is all done it's a matter of telling packer to go build it, and go and have a coffee or two.
 
-```nix
+```sh
 packer build -only=virtualbox-iso solaris11.json
 ```
 So while I can't share you the resulting base box I can share you the code on how to build your own. Get the [files used from github ](https://github.com/AlanC-au/packer)and enjoy, if there are any fixes just submit them to github. Just a point to remember the wait statements timing worked for me on my moderately busy moderately spec'd Mac Mini, hopefully they will work for you but they made need adjusting.
