@@ -30,3 +30,73 @@
   padding-left: 1rem;
   margin: 0 auto;
 }
+
+/*Buttons*/
+.button {
+  border: 0 none;
+  border-radius: 2px 2px 2px 2px;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 20px;
+  margin-bottom: 0;
+  margin-top: 10px;
+  padding: 7px 10px;
+  text-transform: none;
+  transition: all 0.3s ease 0s;
+  -moz-transition: all 0.3s ease 0s;
+  -webkit-transition: all 0.3s ease 0s;
+  width: 16.795%;
+  min-width: 100px;
+  /* auto */
+  text-align: center;
+  /* DELETE WHEN WIDTH AUTO */
+}
+
+.theme-base-08 .button {
+  background-color: #ac4142;
+}
+
+/* Orange */
+.theme-base-09 .button {
+  background-color: #d28445;
+}
+
+/* Yellow */
+.theme-base-0a .button {
+  background-color: #f4bf75;
+}
+
+/* Green */
+.theme-base-0b .button {
+  background-color: #90a959;
+}
+
+/* Cyan */
+.theme-base-0c .button {
+  background-color: #75b5aa;
+}
+
+/* Blue */
+.theme-base-0d .button {
+  background-color: #6a9fb5;
+}
+
+/* Magenta */
+.theme-base-0e .button {
+  background-color: #aa759f;
+}
+
+/* Brown */
+.theme-base-0f .button {
+  background-color: #8f5536;
+}
+
+.read-more {
+  float: right;
+  font-size: 13px;
+  color: white !important;
+  min-width: 100px;
+}
