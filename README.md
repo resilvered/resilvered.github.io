@@ -10,3 +10,4 @@ The additions have been basicly stolen from or inspriration gain from other site
   - [Read more](http://blog.omgmog.net/post/adding-support-for-more-tag-to-jekyll-without-plugins/)
   - [Social bar](http://craigmccaskill.com/)
   - [DISQUS and Google analystics](http://joshualande.com/jekyll-github-pages-poole/)
+  - [How to Make Custom Share Buttons with Jekyll](http://scottndecker.com/blog/2014/06/29/How-to-Make-Custom-Share-Buttons-with-Jekyll/)
