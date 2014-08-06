@@ -11,7 +11,7 @@ comments: True
 
 Oracle Linux 7 was [released this last week](http://www.oracle.com/us/corporate/press/2245947) 2nd of RHEL directives to make a GA release, [CentOS](http://seven.centos.org/2014/07/release-announcement-for-centos-7x86_64/) being the first and [Scientific Linux](https://www.scientificlinux.org/) still to come, currently in alpha.
 
-No real surprises here, now comes with the UEK, `3.8.13-35.3.1.el7uek.x86_64`, kernel as default. If you what to test it out and take it for a spin it's pretty easy to using the my [lunchbox](https://github.com/AlanC-au/lunchbox) set of [packer](http://www.packer.io/) templates files which have been updated to support OEL 7.0.
+No real surprises here, now comes with the UEK, `3.8.13-35.3.1.el7uek.x86_64`, kernel as default. If you what to test it out and take it for a spin it's pretty easy to using the my [lunchbox](https://github.com/bigal/lunchbox) set of [packer](http://www.packer.io/) templates files which have been updated to support OEL 7.0.
 
 Features include:
 
