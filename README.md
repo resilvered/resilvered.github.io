@@ -11,3 +11,11 @@ The additions have been basicly stolen from or inspriration gain from other site
   - [Social bar](http://craigmccaskill.com/)
   - [DISQUS and Google analystics](http://joshualande.com/jekyll-github-pages-poole/)
   - [How to Make Custom Share Buttons with Jekyll](http://scottndecker.com/blog/2014/06/29/How-to-Make-Custom-Share-Buttons-with-Jekyll/)
+
+## Docker
+
+Build<br>
+  `docker build -t docker-jekyll .`
+
+Run<br>
+  `docker run --rm --volume="$PWD:/srv/jekyll" docker-jekyll jekyll serve`
