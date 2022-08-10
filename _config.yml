@@ -1,7 +1,7 @@
 # Dependencies
-markdown:         redcarpet
-redcarpet:
-  extensions: ["tables", "autolink"]
+#markdown:         redcarpet
+#redcarpet:
+#  extensions: ["tables", "autolink"]
 highlighter: pygments
 
 # Permalinks

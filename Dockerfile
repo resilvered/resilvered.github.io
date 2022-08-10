@@ -1,6 +1,6 @@
 
-FROM jekyll/jekyll:3.8
+FROM jekyll/jekyll
 
-RUN gem install jekyll-gist redcarpet pygments.rb jekyll-paginate ; \
+RUN gem install jekyll-serv jekyll-gist webrick pygments.rb jekyll-paginate ; \
   apk add --update \
   python3 

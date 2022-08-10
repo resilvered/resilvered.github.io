@@ -51,7 +51,7 @@ Most obviously this is where the heavy lifting is done. This contains mostly inf
       "vboxmanage": [
         [
           "modifyvm",
-          "{{ '{{' }}.Name }}",
+          "{{ '{{' }}.Name}}",
           "--memory",
           "1024"
         ],
