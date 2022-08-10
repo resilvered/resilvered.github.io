@@ -25,3 +25,11 @@ version:          2.1.0
 
 github:
   repo:           https://github.com/reslivered/resilvered.github.io
+
+plugins:
+  - jekyll-gist
+  - jekyll-paginate
+
+whitelist:
+  - jekyll-gist
+  - jekyll-paginate
