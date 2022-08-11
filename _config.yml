@@ -12,7 +12,7 @@ title:            Al's Ramblings
 tagline:          'A UNIX Guy'
 description:      'Automation, UNIX and other assorted random thoughts'
 url:              http://www.resilvered.com
-baseurl:          /
+baseurl:         "" 
 
 author:
   name:           'Alan Chalmers'
