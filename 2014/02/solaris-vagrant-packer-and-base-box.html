@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Solaris Vagrant Packer and the base box &middot; Al's Ramblings
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/custom.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <!-- JS -->
+  <script type="text/javascript" src="/assets/js/jquery-1.11.1.min.js"></script>
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-52963682-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  <body class="theme-base-0b">
+
+    <div class="sidebar">
+  
+    <div class="sidebar-about">
+      <h1>
+        <a href="">
+          Al's Ramblings
+        </a>
+      </h1>
+      <p class="lead">Automation, UNIX and other assorted random thoughts</p>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="">home</a>
+
+      
+
+      
+      
+        
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/archive/">archives</a>
+          
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/presentations/">presentations</a>
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/tags/">tags</a>
+          
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+
+      </nav>
+      <div id="social-bar">
+        <a href="http://www.linkedin.com/in/alanchalmers/" title="Alan Chalmers on LinkedIn" rel="me"><i class="fa fa-linkedin-square fa-2x"></i></a>
+        <a href="https://github.com/bigal/" title="Alan Chalmers on GitHub" rel="me"><i class="fa fa-github-square fa-2x"></i></a> 
+        <a href="https://twitter.com/bigal" title="Alan Chalmers on Twitter" rel="me"><i class="fa fa-twitter-square fa-2x"></i></a>
+       <a href="https://plus.google.com/+AlanChalmers/" title="Alan Chalmers on Google+" rel="me"><i class="fa fa-google-plus-square fa-2x"></i></a> 
+      <p>&copy; 2022. All rights reserved.</p>
+    </div>
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">Solaris Vagrant Packer and the base box</h1>
+  <span class="post-date">16 Feb 2014</span>
+  <div class="separator" style="clear: both; text-align: center;"><a href="http://2.bp.blogspot.com/-12tlyaN7z5w/UwIO3uI8LGI/AAAAAAAACZ8/J6qimnEh3Io/s1600/V.png" imageanchor="1" style="clear: left; float: left; margin-bottom: 1em; margin-right: 1em;"><img borde="" r="0" src="http://2.bp.blogspot.com/-12tlyaN7z5w/UwIO3uI8LGI/AAAAAAAACZ8/J6qimnEh3Io/s1600/V.png" height="200" width="164" /></a></div>
+<p>If you haven’t used <a href="http://www.vagrantup.com/">Vagrant</a> then go check it out. It’s certainly come a long way since the early days and expanded beyond just <a href="https://www.virtualbox.org/">VirtualBox</a>. Targeted early at developers its certainly a tool that has different uses to different folk, as a system admin I find it handy to test and build SOE’s, deployment scripts and an assortment of sandbox stuff.</p>
+
+<p>There are countless base box’s available on line if your are not inclined/interested in building your own. There is however not a lot of Solaris base boxes about , mostly I’d guess due to distribution restrictions, or lack of demand. I’ve experimented with <a href="https://github.com/jedi4ever/veewee">veewee</a> and <a href="https://github.com/opscode/bento">bento</a> but <a href="http://www.packer.io/">packer</a> the new kid on the block seems to fit the bill. Since there is no shortage of info on building Linux base boxes I decided if I was going to kick the tires on packer then I’d make it useful and build a Solaris 11 base box.</p>
+
+<p>What you’ll need, <a href="https://www.virtualbox.org/">VirtualBox</a> or VMware Fusion (Workstation) , <a href="http://www.oracle.com/technetwork/server-storage/solaris11/downloads/index.html">Solaris 11.1 image</a> , I went for the text base installer just because I like to make my life a little more difficult, and <a href="http://www.packer.io/">Packer</a>.</p>
+
+<p>The <a href="http://www.packer.io/">Packer</a> json config file contains three main parts; builders, provisioners, and post-processors the latter two are optional but used often.</p>
+
+<h4 id="the-builder">The builder</h4>
+
+<p>Most obviously this is where the heavy lifting is done. This contains mostly information about what we are building, guest type weather we have VirtualBox or VMware or other , how big the machine is, user name’s password etc etc. Note line 10 iso_url refers to a local file location I have download the ISO image too since I can’t have a direct URL to the Oracle site.</p>
+
+<pre><code class="language-json">{
+  "builders": [
+    {
+      "boot_command": [ boot command goes here]
+      "boot_wait": "95s",
+      "disk_size": 40960,
+      "guest_os_type": "OpenSolaris_64",
+      "iso_checksum": "1d0efbffe1b194959c1a3d3c8b8d801411c54278",
+      "iso_checksum_type": "sha1",
+      "iso_url": "file:///ISO/Oracle/sol-11_1-text-x86.iso",
+      "output_directory": "packer-solaris11-virtualbox",
+      "shutdown_command": "sudo /usr/sbin/shutdown -g 0 -y -i 5",
+      "ssh_password": "1vagrant",
+      "ssh_port": 22,
+      "ssh_username": "vagrant",
+      "type": "virtualbox-iso",
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "1024"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "1"
+        ]
+      ],
+      "virtualbox_version_file": ".vbox_version",
+      "vm_name": "packer-solaris-11"
+    }
+}
+</code></pre>
+
+<p>For our Solaris machine the boot command is a little more complex than the average Linux build hence in the above example “boot command goes here”. The boot command for Linux is usually just a simple boot and use this kickstart file served from packer’s build in http server. The Solaris 11 equivalent would be the boot and use the AI server, well no surprises <a href="http://www.packer.io/">Packer</a> has no built in AI server.</p>
+
+<p>The boot command for our Solaris example contains all the key strokes required to be sent to the virtual-box console to install and reboot the OS. Note there is no key buffer in the console so the strategically placed wait statements are important. With the vnc connection used in VMware this is a little less important.</p>
+
+<noscript><pre>400: Invalid request</pre></noscript>
+<script src="https://gist.github.com/6219d41bcc08c3e266c0.js"> </script>
+
+<p>As root is a role in Solaris 11 you can’t login as root , so it is important to ensure the vagrant account can sudo to root without password so our post provisioning can finish hence lines 42-47.</p>
+
+<h4 id="the-provisioner">The provisioner</h4>
+
+<p>Simply put this is where we do some stuff to the machine before we turn it into a base box file. Very simple in this case it is running some shell scripts. One to install the required VirtualBox tools the other some minor adjustments to the build, most notable are to place the standard Vagrant ssh keys into the vagrant user account.</p>
+
+<noscript><pre>400: Invalid request</pre></noscript>
+<script src="https://gist.github.com/0b8e9f8564a94f1164c5.js"> </script>
+
+<h4 id="the-post-processor">The post-processor</h4>
+
+<p>Compress and export the image the base box image.</p>
+
+<noscript><pre>400: Invalid request</pre></noscript>
+<script src="https://gist.github.com/6e6fcb7da5c01f03a1c2.js"> </script>
+
+<h4 id="the-wrap-up">The wrap up</h4>
+<p>Once your config file is all done it’s a matter of telling packer to go build it, and go and have a coffee or two.</p>
+
+<pre><code class="language-sh">packer build -only=virtualbox-iso solaris11.json
+</code></pre>
+<p>So while I can’t share you the resulting base box I can share you the code on how to build your own. Get the <a href="https://github.com/bigal/solaris-packer">files used from github </a>and enjoy, if there are any fixes just submit them to github. Just a point to remember the wait statements timing worked for me on my moderately busy moderately spec’d Mac Mini, hopefully they will work for you but they made need adjusting.</p>
+
+</div>
+<div class="custom-social-buttons">   
+  <div class="share-buttons-label">
+    <span>Share with friends</span>
+  </div>
+  <div class="custom-social-button twitter">
+    <a id="twitter-link" href="#"><i class="fa fa-twitter-square fa-2x"></i></a>
+  </div>
+  <div class="custom-social-button linkedin">
+    <a id="linkedin-link" href="#"><i class="fa fa-linkedin-square fa-2x"></i></a>
+  </div>
+  <div class="custom-social-button googleplus">
+    <a id="googleplus-link" href="#"><i class="fa fa-google-plus-square fa-2x"></i></a>
+  </div>
+    <div class="custom-social-button reddit">
+    <a id="reddit-link" href="#"><i class="fa fa-reddit-square fa-2x"></i></a>
+  </div>
+  <script type="text/javascript">
+	window.onload = function(){				
+		var blogDomain = encodeURIComponent("http://www.resilvered.com");
+		var pageTitleSpaces = encodeURIComponent("Solaris Vagrant Packer and the base box") + "&amp;";
+		var pageID = "/2014/02/solaris-vagrant-packer-and-base-box";
+		var pageURL = encodeURIComponent(pageID) + "&amp;";
+			
+		var twitterPartOne = "https://twitter.com/intent/tweet?original_referer=";
+		var twitterPartTwo = "text=";
+		var twitterPartThree = "tw_p=tweetbutton&amp;url=";
+		var twitterPartFour = "via=bigal";
+		var twitterUrl = twitterPartOne + blogDomain + pageURL + twitterPartTwo + pageTitleSpaces + twitterPartThree + blogDomain +  pageURL + twitterPartFour;
+		var twitterLink = document.getElementById("twitter-link");
+		twitterLink.onclick = function() {popUp=window.open(twitterUrl, 'popupwindow', 'scrollbars=yes,width=600,height=400');popUp.focus();return false };
+		
+		var linkedinPartOne = "http://www.linkedin.com/shareArticle?mini=true&url=";
+		var linkedinPartTwo = "&title=";
+		var linkedinPartThree = "&summary=";
+		var linkedinPartFour = "&source=";
+		var linkedinUrl = linkedinPartOne + blogDomain + pageURL + linkedinPartTwo + pageTitleSpaces + linkedinPartFour + "@bigal";
+		var linkedInLink = document.getElementById("linkedin-link");
+		linkedInLink.onclick = function() {popUp=window.open(linkedinUrl, 'popupwindow', 'scrollbars=yes,width=600,height=400');popUp.focus();return false };
+		
+		var googlePlusPartOne = "https://plus.google.com/share?url=";
+		var googlePlusUrl = googlePlusPartOne + blogDomain + pageID;
+		var googlePlusLink = document.getElementById("googleplus-link");
+		googlePlusLink.onclick = function() {popUp=window.open(googlePlusUrl, 'popupwindow', 'scrollbars=yes,width=600,height=400');popUp.focus();return false };
+
+        var redditPartOne = "http://reddit.com/submit?url=";
+        var redditPartTwo = "&title=";
+		var redditUrl = redditPartOne + blogDomain + pageURL + redditPartTwo + pageTitleSpaces;
+		var redditLink = document.getElementById("reddit-link");
+		redditLink.onclick = function() {popUp=window.open(redditUrl, 'popupwindow', 'scrollbars=yes,width=600,height=400');popUp.focus();return false };
+
+	};
+</script>
+
+
+</div>
+
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/blog/2014/08/26/Installing-Jekyll-on-CentOS-7/">
+            Installing Jekyll on CentOS 7
+            <small>26 Aug 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/blog/2014/08/12/HHVM-on-CentOS6/">
+            Installing HHVM 3.2.0 on CentOS 6.5
+            <small>12 Aug 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/blog/2014/07/28/Oracle-Linux-7-released/">
+            Oracle Linux 7 released
+            <small>28 Jul 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+      
+    </div>
+
+  </body>
+</html>

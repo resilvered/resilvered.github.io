@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      installing-ruby-1 &middot; Al's Ramblings
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/custom.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <!-- JS -->
+  <script type="text/javascript" src="/assets/js/jquery-1.11.1.min.js"></script>
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-52963682-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  <body class="theme-base-0b">
+
+    <div class="sidebar">
+  
+    <div class="sidebar-about">
+      <h1>
+        <a href="">
+          Al's Ramblings
+        </a>
+      </h1>
+      <p class="lead">Automation, UNIX and other assorted random thoughts</p>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="">home</a>
+
+      
+
+      
+      
+        
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/archive/">archives</a>
+          
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/presentations/">presentations</a>
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/tags/">tags</a>
+          
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+
+      </nav>
+      <div id="social-bar">
+        <a href="http://www.linkedin.com/in/alanchalmers/" title="Alan Chalmers on LinkedIn" rel="me"><i class="fa fa-linkedin-square fa-2x"></i></a>
+        <a href="https://github.com/bigal/" title="Alan Chalmers on GitHub" rel="me"><i class="fa fa-github-square fa-2x"></i></a> 
+        <a href="https://twitter.com/bigal" title="Alan Chalmers on Twitter" rel="me"><i class="fa fa-twitter-square fa-2x"></i></a>
+       <a href="https://plus.google.com/+AlanChalmers/" title="Alan Chalmers on Google+" rel="me"><i class="fa fa-google-plus-square fa-2x"></i></a> 
+      <p>&copy; 2022. All rights reserved.</p>
+    </div>
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">installing-ruby-1</h1>
+  <span class="post-date">10 Apr 2012</span>
+  <div class="css-full-post-content js-full-post-content">
+<h1>Installing Ruby 1.9.3 and libyaml on Solaris 11</h1></br>Recent blog entries would indicate I've upgrade to Solaris 11 proper or Solaris 11/11 as it goes by.  The upgrade was mostly driven by the fact I need to compile some software and figured I may as well have the most recent version rather than on the express edition. I'm looking into <a href="http://vagrantup.com/">Vagrant</a> at the moment as it might fit in with some of the automation bits I'm playing with. I'm not getting into <a href="http://vagrantup.com/">Vagrant</a>  here just yet as there are a couple of steps I need to do to first to prep my Solaris 11 environment.</br></br>For the "First cloud OS" Solaris 11 is distinctly lacking some items that you could almost say are essentials in todays cloud, <a href="http://www.ruby-lang.org">Ruby</a>.  And I here the cries from the Oracle faithful we ship <a href="http://www.ruby-lang.org">Ruby</a>, Hmm Version 1.8 nearly 5 years old and only months away from EOL.  I did attempt to install <a href="http://vagrantup.com/">Vagrant</a> with version 1.8 and gem just failed to meet the prerequisites by 0.0.1 if I recall. None the less I had committed to building a more recent version of <a href="http://www.ruby-lang.org/">Ruby</a> that I'll need for some other stuff in progress.</br></br>So what do you need to build ruby 1.9.3-p125 on Solaris 11,a compiler obviously and I'm using the gcc 4.5.2 include in the Solaris 11 repo, and <a href="http://pyyaml.org">libyaml</a>, otherwise we end by with this annoying message.</br></br><pre>It seems your ruby installation is missing psych (for YAML output). To eliminate this warning, please install libyaml and reinstall your ruby.</pre></br><h2>Installing libyaml</h2>While vagrant didn't seem to need this I'm not big on annoying messages and who's know when I'll need it. <pre><br />wget http://pyyaml.org/download/libyaml/yaml-0.1.4.tar.gz<br />tar xzf yaml-0.1.4.tar.gz<br />cd yaml-0.1.4<br />./configure<br />make<br />sudo make install<br /></pre></br>Pretty straight forward no issues. </br><h2>Installing Ruby 1.9.3-p125</h2><pre><br />wget http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p125.tar.gz<br />tar xzf ruby-1.9.3-p125.tar.gz<br />cd ruby-1.9.3-p125<br />./configure --enable-shared --with-opt-dir=/usr/local/lib  <br />make<br />sudo make install<br /></pre></br>Worth noting <a href="http://pyyaml.org">libyaml</a> couldn't be found without specifying <i>---with-opt-dir</i></br><pre><br />ruby -v<br />ruby 1.9.3p125 (2012-02-16) [i386-solaris2.11]<br />gem -v <br />1.8.11<br /></pre></br>I'm not altogether happy doing the make installs I'd like to serve these packages up via IPS. I think for that I need a proper build server environment, an IPS repo, and probably some tools to help me package that all up, sounds like an ideal use for a zone. For now it will need wait til I have some more time on my hands.
+</div>
+
+</div>
+<div class="custom-social-buttons">   
+  <div class="share-buttons-label">
+    <span>Share with friends</span>
+  </div>
+  <div class="custom-social-button twitter">
+    <a id="twitter-link" href="#"><i class="fa fa-twitter-square fa-2x"></i></a>
+  </div>
+  <div class="custom-social-button linkedin">
+    <a id="linkedin-link" href="#"><i class="fa fa-linkedin-square fa-2x"></i></a>
+  </div>
+  <div class="custom-social-button googleplus">
+    <a id="googleplus-link" href="#"><i class="fa fa-google-plus-square fa-2x"></i></a>
+  </div>
+    <div class="custom-social-button reddit">
+    <a id="reddit-link" href="#"><i class="fa fa-reddit-square fa-2x"></i></a>
+  </div>
+  <script type="text/javascript">
+	window.onload = function(){				
+		var blogDomain = encodeURIComponent("http://www.resilvered.com");
+		var pageTitleSpaces = encodeURIComponent("installing-ruby-1") + "&amp;";
+		var pageID = "/2012/04/installing-ruby-1";
+		var pageURL = encodeURIComponent(pageID) + "&amp;";
+			
+		var twitterPartOne = "https://twitter.com/intent/tweet?original_referer=";
+		var twitterPartTwo = "text=";
+		var twitterPartThree = "tw_p=tweetbutton&amp;url=";
+		var twitterPartFour = "via=bigal";
+		var twitterUrl = twitterPartOne + blogDomain + pageURL + twitterPartTwo + pageTitleSpaces + twitterPartThree + blogDomain +  pageURL + twitterPartFour;
+		var twitterLink = document.getElementById("twitter-link");
+		twitterLink.onclick = function() {popUp=window.open(twitterUrl, 'popupwindow', 'scrollbars=yes,width=600,height=400');popUp.focus();return false };
+		
+		var linkedinPartOne = "http://www.linkedin.com/shareArticle?mini=true&url=";
+		var linkedinPartTwo = "&title=";
+		var linkedinPartThree = "&summary=";
+		var linkedinPartFour = "&source=";
+		var linkedinUrl = linkedinPartOne + blogDomain + pageURL + linkedinPartTwo + pageTitleSpaces + linkedinPartFour + "@bigal";
+		var linkedInLink = document.getElementById("linkedin-link");
+		linkedInLink.onclick = function() {popUp=window.open(linkedinUrl, 'popupwindow', 'scrollbars=yes,width=600,height=400');popUp.focus();return false };
+		
+		var googlePlusPartOne = "https://plus.google.com/share?url=";
+		var googlePlusUrl = googlePlusPartOne + blogDomain + pageID;
+		var googlePlusLink = document.getElementById("googleplus-link");
+		googlePlusLink.onclick = function() {popUp=window.open(googlePlusUrl, 'popupwindow', 'scrollbars=yes,width=600,height=400');popUp.focus();return false };
+
+        var redditPartOne = "http://reddit.com/submit?url=";
+        var redditPartTwo = "&title=";
+		var redditUrl = redditPartOne + blogDomain + pageURL + redditPartTwo + pageTitleSpaces;
+		var redditLink = document.getElementById("reddit-link");
+		redditLink.onclick = function() {popUp=window.open(redditUrl, 'popupwindow', 'scrollbars=yes,width=600,height=400');popUp.focus();return false };
+
+	};
+</script>
+
+
+</div>
+
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/blog/2014/08/26/Installing-Jekyll-on-CentOS-7/">
+            Installing Jekyll on CentOS 7
+            <small>26 Aug 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/blog/2014/08/12/HHVM-on-CentOS6/">
+            Installing HHVM 3.2.0 on CentOS 6.5
+            <small>12 Aug 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/blog/2014/07/28/Oracle-Linux-7-released/">
+            Oracle Linux 7 released
+            <small>28 Jul 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+      
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://www.resilvered.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://www.resilvered.com/" rel="alternate" type="text/html" /><updated>2022-08-11T12:33:30+00:00</updated><id>http://www.resilvered.com/feed.xml</id><title type="html">Al’s Ramblings</title><subtitle>Automation, UNIX and other assorted random thoughts</subtitle><author><name>Alan Chalmers</name></author><entry><title type="html">Installing Jekyll on CentOS 7</title><link href="http://www.resilvered.com/blog/2014/08/26/Installing-Jekyll-on-CentOS-7/" rel="alternate" type="text/html" title="Installing Jekyll on CentOS 7" /><published>2014-08-26T00:00:00+00:00</published><updated>2014-08-26T00:00:00+00:00</updated><id>http://www.resilvered.com/blog/2014/08/26/Installing-Jekyll-on-CentOS-7</id><content type="html" xml:base="http://www.resilvered.com/blog/2014/08/26/Installing-Jekyll-on-CentOS-7/"><![CDATA[<p>Having recently move to <a href="http://jekyllrb.com/">Jekyll</a> as my blogging platform, I thought I would take a quick look at how easy it is to get going on Linux.</p>
+
+<p>Installation on <a href="http://www.centos.org/">CentOS 7</a> is very straight forward. First add the EPEL repository for <a href="http://www.centos.org/">CentOS 7</a> as this is where you will find the <a href="http://nodejs.org/">nodejs</a> rpm</p>
+
+<pre><code>sudo yum install http://download.fedoraproject.org/pub/epel/beta/7/x86_64/epel-release-7-0.2.noarch.rpm
+</code></pre>
+
+<p>Install the required packages, <em>note npm is not required but handy to have around</em>.</p>
+
+<pre><code>sudo yum install nodejs npm ruby ruby-devel rubygems git
+gem install jekyll
+</code></pre>
+
+<p>Start using <a href="http://jekyllrb.com/">Jekyll</a>.</p>
+
+<pre><code class="language-sh">jekyll new my-awesome-site
+cd my-awesome-site/
+jekyll serve
+</code></pre>]]></content><author><name>Alan Chalmers</name></author><category term="blog" /><category term="Jekyll" /><category term="Linux" /><category term="CentOS" /><summary type="html"><![CDATA[Having recently move to Jekyll as my blogging platform, I thought I would take a quick look at how easy it is to get going on Linux.]]></summary></entry><entry><title type="html">Installing HHVM 3.2.0 on CentOS 6.5</title><link href="http://www.resilvered.com/blog/2014/08/12/HHVM-on-CentOS6/" rel="alternate" type="text/html" title="Installing HHVM 3.2.0 on CentOS 6.5" /><published>2014-08-12T00:00:00+00:00</published><updated>2014-08-12T00:00:00+00:00</updated><id>http://www.resilvered.com/blog/2014/08/12/HHVM-on-CentOS6</id><content type="html" xml:base="http://www.resilvered.com/blog/2014/08/12/HHVM-on-CentOS6/"><![CDATA[<p><img src="/assets/images/hhvm.jpeg" width="100%" height="100" />
+<a href="https://github.com/facebook/hhvm/">HHVM</a> is a virtual machine for Hack and PHP it uses JIT to improve performance. Installation on a less than bleeding edge OS can prove a little challenging. What follows is what I did to get it up and going quickly for our developers in our CentOS 6.5 environment. It may work for you too.</p>
+
+<p>Packages were sourced from two repo’s http://yum.gleez.com/ and http://remi.conetix.com.au/</p>
+
+<p>Things boiled down to these 11 packages that were signed and added to our local yum repo:</p>
+
+<pre><code>boost-filesystem-1.54.0-9.el6.x86_64.rpm
+boost-program-options-1.54.0-9.el6.x86_64.rpm
+boost-regex-1.54.0-9.el6.x86_64.rpm
+boost-system-1.54.0-9.el6.x86_64.rpm
+boost-thread-1.54.0-9.el6.x86_64.rpm
+compat-mysql55-5.5.38-1.el6.remi.x86_64.rpm
+hhvm-3.2.0-10.el6.x86_64.rpm
+libbson-0.6.6-1.el6.x86_64.rpm
+libstdc++48-4.8.2-10.el6.x86_64.rpm
+libwebp-0.3.1-2.el6.remi.x86_64.rpm
+tbb-4.1-2.20130116.el6.x86_64.rpm
+</code></pre>
+
+<p>The only “<em>gotcha</em>” was the fact we have postfix installed and it was looking to use mysql-libs and <a href="https://github.com/facebook/hhvm/">HHVM</a> wanted mysql55-libs to resolve some of it’s dependencies. This created some incompatibilities with postfix.</p>
+
+<p>The issue was resolved using compat-mysql55, while there are a few places to find that rpm the only one contained libmysqlclient.so.18.0.0 version of the library that was needed was the <a href="http://remi.conetix.com.au/">Remi</a> site.</p>
+
+<p>If you have mysql55-libs available in your repos then you will need to install the compact library first</p>
+
+<pre><code>yum install compat-mysql55
+yum install hhvm
+</code></pre>
+
+<p>If you don’t then you can go right ahead</p>
+
+<pre><code>yum install hhvm
+</code></pre>
+
+<p>For more info take a look at:</p>
+
+<ul>
+  <li>https://github.com/facebook/hhvm/issues/3360</li>
+  <li>https://github.com/facebook/hhvm/wiki/Prebuilt-Packages-on-Centos-6.x</li>
+</ul>]]></content><author><name>Alan Chalmers</name></author><category term="blog" /><category term="HHVM" /><category term="Linux" /><category term="CentOS" /><category term="PHP" /><category term="Hack" /><summary type="html"><![CDATA[HHVM is a virtual machine for Hack and PHP it uses JIT to improve performance. Installation on a less than bleeding edge OS can prove a little challenging. What follows is what I did to get it up and going quickly for our developers in our CentOS 6.5 environment. It may work for you too.]]></summary></entry><entry><title type="html">Oracle Linux 7 released</title><link href="http://www.resilvered.com/blog/2014/07/28/Oracle-Linux-7-released/" rel="alternate" type="text/html" title="Oracle Linux 7 released" /><published>2014-07-28T00:00:00+00:00</published><updated>2014-07-28T00:00:00+00:00</updated><id>http://www.resilvered.com/blog/2014/07/28/Oracle-Linux-7-released</id><content type="html" xml:base="http://www.resilvered.com/blog/2014/07/28/Oracle-Linux-7-released/"><![CDATA[<div class="separator" style="clear: left; float: left; margin-bottom: 1em; margin-right: 1em;"><img border="0" src="http://www.oracle.com/us/assets/im07t1-linux-7-2245828.png" width="150" /></div>
+
+<p>Oracle Linux 7 was <a href="http://www.oracle.com/us/corporate/press/2245947">released this last week</a> 2nd of RHEL directives to make a GA release, <a href="http://seven.centos.org/2014/07/release-announcement-for-centos-7x86_64/">CentOS</a> being the first and <a href="https://www.scientificlinux.org/">Scientific Linux</a> still to come, currently in alpha.</p>
+
+<p>No real surprises here, now comes with the UEK, <code>3.8.13-35.3.1.el7uek.x86_64</code>, kernel as default. If you what to test it out and take it for a spin it’s pretty easy to using the my <a href="https://github.com/bigal/lunchbox">lunchbox</a> set of <a href="http://www.packer.io/">packer</a> templates files which have been updated to support OEL 7.0.</p>
+
+<p>Features include:</p>
+
+<ul>
+  <li>Btrfs</li>
+  <li>XFS</li>
+  <li>Linux Containers (LXC)</li>
+  <li>DTrace</li>
+  <li>Ksplice for zero-downtime kernel security updates and bug fixes</li>
+  <li>Unbreakable Enterprise Kernel (UEK) Release 3</li>
+  <li>systemd, a new service and system manager</li>
+  <li>Grub2 as the default boot loader with support for additional firmware types, such as UEFI</li>
+  <li>Support for in-place upgrades from OEL 6.5 to OEL 7</li>
+</ul>
+
+<p>You will need to download the ISO via the <a href="https://edelivery.oracle.com/linux/">Oracle Edelivery site</a></p>]]></content><author><name>Alan Chalmers</name></author><category term="blog" /><category term="blog" /><category term="Oracle" /><category term="Linux" /><category term="packer" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Life in the old blog</title><link href="http://www.resilvered.com/blog/2014/07/26/Life-in-the-old-blog/" rel="alternate" type="text/html" title="Life in the old blog" /><published>2014-07-26T00:00:00+00:00</published><updated>2014-07-26T00:00:00+00:00</updated><id>http://www.resilvered.com/blog/2014/07/26/Life-in-the-old-blog</id><content type="html" xml:base="http://www.resilvered.com/blog/2014/07/26/Life-in-the-old-blog/"><![CDATA[<div class="separator" style="clear: left; float: left; margin-bottom: 1em; margin-right: 1em;"><img border="0" src="/assets/images/ScreenShot-theme-base-08.png" width="200" /></div>
+
+<p>So the old blog got a face lift, and when you do that the thing everyone does is to write a blog aticle about it. Well me too but it will be pretty short and not very detailed as there are loads of places that can cover thats better than me.</p>
+
+<p>First stop was to move to my own domain name, get over to <a href="https://hover.com/NW97rheW">hover</a> for that and setup <a href="http://www.resilvered.com">www.resilvered.com</a> to point to <a href="http://www.resilvered.com">resilvered.blogger.com</a> and have it server my new custom domain. Note I didn’t go for a .au domain becuase of price and the requirement of an ABN.</p>
+
+<p>Like most folks the reason for the move is I find writting in blogger a PITA and as I spend most of my life in a text editor with scritping and the ocassional markdown language settling on using <a href="http://jekyllrb.com/">Jekyll</a> for <a href="https://pages.github.com/">GitHub Pages</a> was as they say a no brainer.</p>
+
+<p>So go and grab <a href="http://jekyllrb.com/">Jekyll</a> for your platform, a simple brew install on my Mac, and make sure you are using or have <a href="http://git-scm.com/">git</a>, and get yourself a <a href="https://github.com/">GitHub</a> account and sign up to <a href="https://pages.github.com/">GitHub Pages</a>.</p>
+
+<p>All the kiddies are using <a href="http://git-scm.com/">git</a> these days so if you are like me and have used every other version control system but git then check out this <a href="http://rogerdudler.github.io/git-guide/">no BS git site</a> to get yourself going with <a href="http://git-scm.com/">git</a>.</p>
+
+<p>There are loads of template options avialble for <a href="http://jekyllrb.com/">Jekyll</a>, I settled on <a href="https://github.com/poole/hyde">Hyde</a> and didn’t want to spend all my time looking around. After that I stole / got insperation from a number of other places below such as:</p>
+
+<ul>
+  <li><a href="http://blog.davidebbo.com/">Davis Ebbo’s Blog</a></li>
+  <li>Jekyll <a href="http://enrmarc.github.io/tags.html">Cloud Tags</a></li>
+  <li>Alternate <a href="http://vvv.tobiassjosten.net/jekyll/jekyll-tag-cloud/">Cloud tags</a> that I did not use</li>
+  <li><a href="http://blog.omgmog.net/post/adding-support-for-more-tag-to-jekyll-without-plugins/">Read more</a></li>
+  <li><a href="http://craigmccaskill.com/">Social bar</a> with (Font Awesome]:(http://fortawesome.github.io/Font-Awesome/get-started/)</li>
+  <li><a href="http://joshualande.com/jekyll-github-pages-poole/">DISQUS and Google analystics</a></li>
+  <li><a href="http://scottndecker.com/blog/2014/06/29/How-to-Make-Custom-Share-Buttons-with-Jekyll/">How to Make Custom Share Buttons with Jekyll</a></li>
+</ul>
+
+<p>The <a href="https://github.com/poole/hyde">Hyde</a> template comes with some diffrent colour themes. Some screenshots from below let me know which colours look best.</p>
+
+<style type="text/css">
+  
+    #myImages {
+        text-align:center;
+    }
+    #myImages img {
+        display: inline;
+    }
+
+</style>
+
+<div id="myImages">
+<img src="/assets/images/ScreenShot-theme-base-08.png" width="49%" height="49%" alt="theme-base-08" />
+<img src="/assets/images/ScreenShot-theme-base-09.png" width="49%" height="49%" alt="theme-base-09" />
+<img src="/assets/images/ScreenShot-theme-base-0a.png" width="49%" height="49%" alt="theme-base-0a" />
+<img src="/assets/images/ScreenShot-theme-base-0b.png" width="49%" height="49%" alt="theme-base-0b" />
+<img src="/assets/images/ScreenShot-theme-base-0c.png" width="49%" height="49%" alt="theme-base-0c" />
+<img src="/assets/images/ScreenShot-theme-base-0d.png" width="49%" height="49%" alt="theme-base-0d" />
+<img src="/assets/images/ScreenShot-theme-base-0e.png" width="49%" height="49%" alt="theme-base-0e" />
+<img src="/assets/images/ScreenShot-theme-base-0f.png" width="49%" height="49%" alt="theme-base-0f" />
+</div>]]></content><author><name>Alan Chalmers</name></author><category term="blog" /><category term="blog" /><category term="Jekyll" /><category term="Hyde" /><category term="css" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Running Ansible on Windows</title><link href="http://www.resilvered.com/2014/04/running-ansible-on-windows.html" rel="alternate" type="text/html" title="Running Ansible on Windows" /><published>2014-04-08T06:42:00+00:00</published><updated>2014-04-08T06:42:00+00:00</updated><id>http://www.resilvered.com/2014/04/running-ansible-on-windows</id><content type="html" xml:base="http://www.resilvered.com/2014/04/running-ansible-on-windows.html"><![CDATA[<div class="separator" style="clear: both; text-align: center;"><a href="http://4.bp.blogspot.com/-pVUyN4PakG8/U0OXhJXE4lI/AAAAAAAAIE8/tnAYdhmpQXs/s1600/ansible_badge.png" imageanchor="1" style="clear: left; float: left; margin-bottom: 1em; margin-right: 1em;"><img border="0" src="http://4.bp.blogspot.com/-pVUyN4PakG8/U0OXhJXE4lI/AAAAAAAAIE8/tnAYdhmpQXs/s1600/ansible_badge.png" height="150" width="150" /></a></div>
+<p>Some times you just have to make do with what you have. So I considered this morning why is it as IT professional we are often told what tool we need to use to do our job. I mean does a carpenter get told what type of saw he need to use?</p>
+
+<p>My tool of the trade is a Mac, not because I’m an Apple fan boy ,far from it, but as a functional computer it really does just work. Has access to the tools I need due to it’s Unix heritage, and provides and usable graphical interface for the less technical in the family.</p>
+
+<p>It’s 2014 and it still astounds me that Windows can’t ship with a decent terminal/ command shell and ssh. Plenty of after mark products about but they really are just all flawed in subtlety different ways. My current engagement finds them doing their very best to make my life as hard as possible to achieve any real outcome. I have a bunch of work to do that needs to be repeated across a number of servers, knowing full well I have better chance of being the next flight to the space station than getting Puppet or Chef installed, I’ve opted for Ansible.</p>
+
+<p>So if like myself you find yourself in a position to need to run some ansible from a Windows PC that you don;t have admin rights on then read on if not then arrivederci.</p>
+
+<p>First up go grab yourself a copy of <a href="http://cygwin.com/install.html">cygwin</a></p>
+
+<p>So no admin rights on this box either open cmd and run <strong>setup-x86_64.exe –no-admin</strong> or create a shortcut on the Desktop and add the <strong>--no-admin</strong> option. Handy as you may need to run this again later for some other installation.</p>
+
+<p>So when you get a chance you are going to need to install the following:</p>
+
+<ul>
+  <li>wget</li>
+  <li>python</li>
+  <li>python-crypto</li>
+  <li>python-openssl</li>
+  <li>python-setuptools</li>
+  <li>git</li>
+  <li>vim</li>
+  <li>openssh</li>
+  <li>openssl</li>
+  <li>openssl-devel</li>
+  <li>libsasl2</li>
+  <li>ca-certificates</li>
+</ul>
+
+<p>There will be a bunch of dependent packages that are required the install should figure them out and you should accept them.</p>
+
+<p>So pretty good chance you’ll be behind a proxy so when you open the cygwin terminal you might want to set this up.</p>
+
+<pre><code>export http_proxy=http://user:passwd@my.corporate.proxy:80/
+export https_proxy=https://user:passwd@my.corporate.proxy:80/
+</code></pre>
+
+<p>Probably drop them in your .bash_profile for later use.</p>
+
+<p>Next you going to need PyYAML and Jinja2 for Ansible and these aren’t available in the <a href="http://cygwin.com/install.html">cygwin</a> installer.</p>
+
+<p>Grab PyYAML:</p>
+
+<pre><code class="language-sh">wget https://pypi.python.org/packages/source/P/PyYAML/PyYAML-3.10.tar.gz
+tar -xvf PyYAML-3.10.tar.gz
+cd PyYAML-3.10
+python setup.py install
+cd ..
+</code></pre>
+
+<p>Now grab Jinja2 and rinse repeat:</p>
+
+<pre><code class="language-sh">wget https://pypi.python.org/packages/source/J/Jinja2/Jinja2-2.6.tar.gz
+tar -xvf Jinja2-2.6.tar.gz
+cd Jinja2-2.6
+python setup.py install
+cd ..
+</code></pre>
+
+<p>If you don’t already have an ssh key the generate one. I would recommend setting a password and having a key agent installed also, ssh-keygen is what you are looking for</p>
+
+<p>Behind the corporate firewall git will need a hand also.</p>
+
+<pre><code>git config –global http.proxy $http_proxy
+</code></pre>
+
+<p>Now you can clone <a href="http://www.ansible.com/">ansible</a> from <a href="https://github.com/">GitHub</a>:</p>
+
+<pre><code>git clone https://github.com/ansible/ansible /opt/ansible
+</code></pre>
+
+<p>Setup some path stuff , you probably want to drop these in your .bash_profile also</p>
+
+<pre><code class="language-sh">ANSIBLE=/opt/ansible
+export PATH=$PATH:$ANSIBLE/bin
+export PYTHONPATH=$ANSIBLE/lib
+export ANSIBLE_LIBRARY=$ANSIBLE/library
+</code></pre>
+<p>and your ready to rumble, or at least I though I was. Turns out there is an issue with the cygwin openssh and control master so make sure you add this line.</p>
+
+<p>```sh
+export ANSIBLE_SSH_ARGS=”-o ControlMaster=no”</p>]]></content><author><name>Alan Chalmers</name></author><category term="blog" /><category term="work" /><category term="windows" /><category term="ansible" /><category term="configuration management" /><category term="work" /><category term="windows" /><category term="ansible" /><category term="configuration management" /><summary type="html"><![CDATA[Some times you just have to make do with what you have. So I considered this morning why is it as IT professional we are often told what tool we need to use to do our job. I mean does a carpenter get told what type of saw he need to use?]]></summary></entry><entry><title type="html">Podcasts I’m listening too</title><link href="http://www.resilvered.com/2014/04/podcasts-im-listening-too.html" rel="alternate" type="text/html" title="Podcasts I’m listening too" /><published>2014-04-08T04:01:00+00:00</published><updated>2014-04-08T04:01:00+00:00</updated><id>http://www.resilvered.com/2014/04/podcasts-im-listening-too</id><content type="html" xml:base="http://www.resilvered.com/2014/04/podcasts-im-listening-too.html"><![CDATA[<div class="css-full-post-content js-full-post-content">
+<div class="separator" style="clear: both; text-align: center;"><a href="/images/podcast-headphones.png" imageanchor="1" style="clear: left; float: left; margin-bottom: 1em; margin-right: 1em;"><img border="0" src="/images/podcast-headphones.png" height="181" width="200" /></a></div>For sometime I have been meaning to jot down some interesting, at least to me, podcast's that I listen to, with the recent complete re-install of my phone seemed like a good time to do this.<br /><br />As I work in tech the list is predominately tech focused for a few years it was the TWiT network that dominated the Tech podcast but there are lots more on the radar these days. I wouldn't call the TWiT shows super technical indeed there are more useful to get a sense of what is happening at the consumer end of the industry which drives a lot of what we do.<br /><br />I'm always on the look out for new and interesting stuff, so if you have any suggestions drop me a line<br /><h3>Recent Arrivals</h3><ul><li><a href="http://foodfightshow.org/">The Food Fight Show</a>&nbsp;</li></ul>Certainly has some handy tidbits and info especially if you are interested in whats going on in the DevOps space. They could do with some work on the audio quality but it's still early days for them.<br /><ul><li><a href="http://devopscafe.org/" target="_blank">DevOps Cafe Podcast&nbsp;</a></li></ul>Similar vane to the Food Fight Show , a little less Chef focused and again on occasion suffering in the audio quality department.<br /><div><ul><li><a href="http://www.cultofmac.com/cultcast/" target="_blank">CultCast</a></li></ul>The best Apple conversation all week long. That's their tag line, I have added this as a replacement for MacBreak Weekly as I can get the same news in a much smaller timeframe. It must be said that these guys reallly should avoid drinking and pod-casting there Cult Cast live from Mac World is absolutely to be avoided.<br /><h3>Old favorites&nbsp;</h3><ul><li><a href="http://twit.tv/floss" target="_blank">Floss Weekly&nbsp;</a></li></ul>Out of the TWiT Studios this is on my regular listen list, occasional item I skip over but good coverage of some general open source software. I like the fact it's not Linux focused, some folks forget open source was about long before Linux.<br /><ul><li><a href="http://twit.tv/show/this-week-in-google/" target="_blank">This Week in Google&nbsp;</a></li></ul>Another TWiT show, I have a few, a little too long at times and often repeats items covered in All About Android and TWIT, still on the listen list for now.<br /><ul><li><a href="http://twit.tv/show/all-about-android" target="_blank">All About Android&nbsp;</a></li></ul>Good android show, the App Arena is handy to find some useful app. The addition of <a href="https://plus.google.com/+AaronNewcomb" target="_blank">Aaron Newcomb</a> as a sometime guest host is a good asset to the show. Suffers by being too long at times.<br /><ul><li><a href="http://twit.tv/show/this-week-in-tech/" target="_blank">This week in Tech&nbsp;</a></li></ul>The original and the classic from the TWIT network, nothing if not funny to hear a bunch or journos thinking they are geeks, definitely consumer IT, news and entertainment.<br /><ul><li><a href="http://packetpushers.net/" target="_blank">Packet Pushers</a>&nbsp;</li></ul>Serious Network geekery, I think if I here another show on SDN I'll scream. I regularly skip shows but like to keep an eye , or ear , on whats passing through here, and <b>yes </b>sometime too much networking can be enough.<br /><ul><li><a href="http://freakonomics.com/radio/freakonomics-radio-podcast-archive/" target="_blank">Freakonomics</a></li></ul>The hidden side of everything, first of my non tech shows. Great generally interesting topics and a nice consumable length for my morning commute.<br /><ul><li><a href="http://www.npr.org/rss/podcast/podcast_detail.php?siteId=94411890" target="_blank">Planet Money</a></li></ul>Similar vain to Freakonomics, good length and some quality general interest topics.</div><div><ul><li><a href="http://www.bbc.co.uk/podcasts/series/fricomedy" target="_blank">Friday Night Comedy from BBC Radio 4</a></li></ul>30 minutes of humorous British news, get it and have a laugh out load on your commute.<br /><h3>On the out&nbsp;</h3><ul><li><a href="http://twit.tv/show/tech-news-today" target="_blank">Tech News Today</a></li></ul>Just didn't make it back on to the list mostly I just couldn't commit to listen daily even with the new format sticking to a better shorter show, add to this one of the hosts with and annoying voice I guess I'll consume my news more weekly.<br /><ul><li><a href="http://twit.tv/show/macbreak-weekly" target="_blank">MacBreak Weekly</a></li></ul>Love hate relationship, mostly there just isn't enough mac news each week for the length of this show they tend to rabbit on a bit and cover a bunch of other stuff from other shows on the TWIT network. Now is some could just do the section on the picks of the week that would be nice<br /><ul><li><a href="http://sixgun.org/linuxoutlaws" target="_blank">Linux Outlaws</a></li></ul>The constant bitching about how bad everything and everyone else has lead this to the drop list. I became a chore to listen too and at time dangerous when they decided to shout into the mic.<br /><ul><li><a href="http://twit.tv/show/triangulation" target="_blank">Triangulation</a></li></ul>I probably skipped more than I listened to so it had to make way for the new stuff I'd like to add.<br /><h3>The try out list</h3><div>Not yet listened to but will take them for a spin</div><ul><li><a href="http://www.arresteddevops.com/" target="_blank">Arrested Dev Ops</a></li><li><a href="http://theshipshow.com/" target="_blank">The Snip Show</a></li><li><a href="http://player.fm/series/puppet-labs-podcast" target="_blank">Puppet Labs Podcast</a></li><li><a href="http://5by5.tv/changelog" target="_blank">The changelog</a></li></ul></div>
+</div>]]></content><author><name>Alan Chalmers</name></author><category term="blog" /><category term="podcast" /><category term="podcast" /><summary type="html"><![CDATA[For sometime I have been meaning to jot down some interesting, at least to me, podcast's that I listen to, with the recent complete re-install of my phone seemed like a good time to do this.As I work in tech the list is predominately tech focused for a few years it was the TWiT network that dominated the Tech podcast but there are lots more on the radar these days. I wouldn't call the TWiT shows super technical indeed there are more useful to get a sense of what is happening at the consumer end of the industry which drives a lot of what we do.I'm always on the look out for new and interesting stuff, so if you have any suggestions drop me a lineRecent ArrivalsThe Food Fight Show&nbsp;Certainly has some handy tidbits and info especially if you are interested in whats going on in the DevOps space. They could do with some work on the audio quality but it's still early days for them.DevOps Cafe Podcast&nbsp;Similar vane to the Food Fight Show , a little less Chef focused and again on occasion suffering in the audio quality department.CultCastThe best Apple conversation all week long. That's their tag line, I have added this as a replacement for MacBreak Weekly as I can get the same news in a much smaller timeframe. It must be said that these guys reallly should avoid drinking and pod-casting there Cult Cast live from Mac World is absolutely to be avoided.Old favorites&nbsp;Floss Weekly&nbsp;Out of the TWiT Studios this is on my regular listen list, occasional item I skip over but good coverage of some general open source software. I like the fact it's not Linux focused, some folks forget open source was about long before Linux.This Week in Google&nbsp;Another TWiT show, I have a few, a little too long at times and often repeats items covered in All About Android and TWIT, still on the listen list for now.All About Android&nbsp;Good android show, the App Arena is handy to find some useful app. The addition of Aaron Newcomb as a sometime guest host is a good asset to the show. Suffers by being too long at times.This week in Tech&nbsp;The original and the classic from the TWIT network, nothing if not funny to hear a bunch or journos thinking they are geeks, definitely consumer IT, news and entertainment.Packet Pushers&nbsp;Serious Network geekery, I think if I here another show on SDN I'll scream. I regularly skip shows but like to keep an eye , or ear , on whats passing through here, and yes sometime too much networking can be enough.FreakonomicsThe hidden side of everything, first of my non tech shows. Great generally interesting topics and a nice consumable length for my morning commute.Planet MoneySimilar vain to Freakonomics, good length and some quality general interest topics.Friday Night Comedy from BBC Radio 430 minutes of humorous British news, get it and have a laugh out load on your commute.On the out&nbsp;Tech News TodayJust didn't make it back on to the list mostly I just couldn't commit to listen daily even with the new format sticking to a better shorter show, add to this one of the hosts with and annoying voice I guess I'll consume my news more weekly.MacBreak WeeklyLove hate relationship, mostly there just isn't enough mac news each week for the length of this show they tend to rabbit on a bit and cover a bunch of other stuff from other shows on the TWIT network. Now is some could just do the section on the picks of the week that would be niceLinux OutlawsThe constant bitching about how bad everything and everyone else has lead this to the drop list. I became a chore to listen too and at time dangerous when they decided to shout into the mic.TriangulationI probably skipped more than I listened to so it had to make way for the new stuff I'd like to add.The try out listNot yet listened to but will take them for a spinArrested Dev OpsThe Snip ShowPuppet Labs PodcastThe changelog]]></summary></entry><entry><title type="html">Solaris Vagrant Packer and the base box</title><link href="http://www.resilvered.com/2014/02/solaris-vagrant-packer-and-base-box.html" rel="alternate" type="text/html" title="Solaris Vagrant Packer and the base box" /><published>2014-02-16T12:06:00+00:00</published><updated>2014-02-16T12:06:00+00:00</updated><id>http://www.resilvered.com/2014/02/solaris-vagrant-packer-and-base-box</id><content type="html" xml:base="http://www.resilvered.com/2014/02/solaris-vagrant-packer-and-base-box.html"><![CDATA[<div class="separator" style="clear: both; text-align: center;"><a href="http://2.bp.blogspot.com/-12tlyaN7z5w/UwIO3uI8LGI/AAAAAAAACZ8/J6qimnEh3Io/s1600/V.png" imageanchor="1" style="clear: left; float: left; margin-bottom: 1em; margin-right: 1em;"><img borde="" r="0" src="http://2.bp.blogspot.com/-12tlyaN7z5w/UwIO3uI8LGI/AAAAAAAACZ8/J6qimnEh3Io/s1600/V.png" height="200" width="164" /></a></div>
+<p>If you haven’t used <a href="http://www.vagrantup.com/">Vagrant</a> then go check it out. It’s certainly come a long way since the early days and expanded beyond just <a href="https://www.virtualbox.org/">VirtualBox</a>. Targeted early at developers its certainly a tool that has different uses to different folk, as a system admin I find it handy to test and build SOE’s, deployment scripts and an assortment of sandbox stuff.</p>
+
+<p>There are countless base box’s available on line if your are not inclined/interested in building your own. There is however not a lot of Solaris base boxes about , mostly I’d guess due to distribution restrictions, or lack of demand. I’ve experimented with <a href="https://github.com/jedi4ever/veewee">veewee</a> and <a href="https://github.com/opscode/bento">bento</a> but <a href="http://www.packer.io/">packer</a> the new kid on the block seems to fit the bill. Since there is no shortage of info on building Linux base boxes I decided if I was going to kick the tires on packer then I’d make it useful and build a Solaris 11 base box.</p>
+
+<p>What you’ll need, <a href="https://www.virtualbox.org/">VirtualBox</a> or VMware Fusion (Workstation) , <a href="http://www.oracle.com/technetwork/server-storage/solaris11/downloads/index.html">Solaris 11.1 image</a> , I went for the text base installer just because I like to make my life a little more difficult, and <a href="http://www.packer.io/">Packer</a>.</p>
+
+<p>The <a href="http://www.packer.io/">Packer</a> json config file contains three main parts; builders, provisioners, and post-processors the latter two are optional but used often.</p>
+
+<h4 id="the-builder">The builder</h4>
+
+<p>Most obviously this is where the heavy lifting is done. This contains mostly information about what we are building, guest type weather we have VirtualBox or VMware or other , how big the machine is, user name’s password etc etc. Note line 10 iso_url refers to a local file location I have download the ISO image too since I can’t have a direct URL to the Oracle site.</p>
+
+<pre><code class="language-json">{
+  "builders": [
+    {
+      "boot_command": [ boot command goes here]
+      "boot_wait": "95s",
+      "disk_size": 40960,
+      "guest_os_type": "OpenSolaris_64",
+      "iso_checksum": "1d0efbffe1b194959c1a3d3c8b8d801411c54278",
+      "iso_checksum_type": "sha1",
+      "iso_url": "file:///ISO/Oracle/sol-11_1-text-x86.iso",
+      "output_directory": "packer-solaris11-virtualbox",
+      "shutdown_command": "sudo /usr/sbin/shutdown -g 0 -y -i 5",
+      "ssh_password": "1vagrant",
+      "ssh_port": 22,
+      "ssh_username": "vagrant",
+      "type": "virtualbox-iso",
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "1024"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "1"
+        ]
+      ],
+      "virtualbox_version_file": ".vbox_version",
+      "vm_name": "packer-solaris-11"
+    }
+}
+</code></pre>
+
+<p>For our Solaris machine the boot command is a little more complex than the average Linux build hence in the above example “boot command goes here”. The boot command for Linux is usually just a simple boot and use this kickstart file served from packer’s build in http server. The Solaris 11 equivalent would be the boot and use the AI server, well no surprises <a href="http://www.packer.io/">Packer</a> has no built in AI server.</p>
+
+<p>The boot command for our Solaris example contains all the key strokes required to be sent to the virtual-box console to install and reboot the OS. Note there is no key buffer in the console so the strategically placed wait statements are important. With the vnc connection used in VMware this is a little less important.</p>
+
+<noscript><pre>400: Invalid request</pre></noscript>
+<script src="https://gist.github.com/6219d41bcc08c3e266c0.js"> </script>
+
+<p>As root is a role in Solaris 11 you can’t login as root , so it is important to ensure the vagrant account can sudo to root without password so our post provisioning can finish hence lines 42-47.</p>
+
+<h4 id="the-provisioner">The provisioner</h4>
+
+<p>Simply put this is where we do some stuff to the machine before we turn it into a base box file. Very simple in this case it is running some shell scripts. One to install the required VirtualBox tools the other some minor adjustments to the build, most notable are to place the standard Vagrant ssh keys into the vagrant user account.</p>
+
+<noscript><pre>400: Invalid request</pre></noscript>
+<script src="https://gist.github.com/0b8e9f8564a94f1164c5.js"> </script>
+
+<h4 id="the-post-processor">The post-processor</h4>
+
+<p>Compress and export the image the base box image.</p>
+
+<noscript><pre>400: Invalid request</pre></noscript>
+<script src="https://gist.github.com/6e6fcb7da5c01f03a1c2.js"> </script>
+
+<h4 id="the-wrap-up">The wrap up</h4>
+<p>Once your config file is all done it’s a matter of telling packer to go build it, and go and have a coffee or two.</p>
+
+<pre><code class="language-sh">packer build -only=virtualbox-iso solaris11.json
+</code></pre>
+<p>So while I can’t share you the resulting base box I can share you the code on how to build your own. Get the <a href="https://github.com/bigal/solaris-packer">files used from github </a>and enjoy, if there are any fixes just submit them to github. Just a point to remember the wait statements timing worked for me on my moderately busy moderately spec’d Mac Mini, hopefully they will work for you but they made need adjusting.</p>]]></content><author><name>Alan Chalmers</name></author><category term="blog" /><category term="virtualbox" /><category term="vagrant" /><category term="Solaris 11" /><category term="solaris" /><category term="virtualbox" /><category term="vagrant" /><category term="Solaris 11" /><category term="solaris" /><summary type="html"><![CDATA[If you haven’t used Vagrant then go check it out. It’s certainly come a long way since the early days and expanded beyond just VirtualBox. Targeted early at developers its certainly a tool that has different uses to different folk, as a system admin I find it handy to test and build SOE’s, deployment scripts and an assortment of sandbox stuff.]]></summary></entry><entry><title type="html">Puppet 3 and Solaris 11 IPS</title><link href="http://www.resilvered.com/2012/09/puppet-3-and-solaris-11-ips.html" rel="alternate" type="text/html" title="Puppet 3 and Solaris 11 IPS" /><published>2012-09-30T02:18:00+00:00</published><updated>2012-09-30T02:18:00+00:00</updated><id>http://www.resilvered.com/2012/09/puppet-3-and-solaris-11-ips</id><content type="html" xml:base="http://www.resilvered.com/2012/09/puppet-3-and-solaris-11-ips.html"><![CDATA[<div class="css-full-post-content js-full-post-content">
+A recent post <a href="https://groups.google.com/forum/?fromgroups=#!topic/puppet-users/-mnIqWAPb8U">Solaris Packages for Puppet 3.0.0-rc7, Facter 1.6.0 and Hiera 1.0.0</a>&nbsp;on a puppet mailing list caught my eye.<br /><br />While gems has a&nbsp;nifty&nbsp;little package management system of it's own, &nbsp;it is possible be that your machines do not have direct access to the interent so&nbsp;having a local IPS repo is handy. I'll&nbsp;demonstrate&nbsp;how to add these packages to you own repository.&nbsp;This assumes you have already <a href="http://resilvered.blogspot.com.au/2012/06/how-to-create-mulitple-solaris.html">setup your&nbsp;own&nbsp;local repo</a>.<br /><br />First up retrive the IPS package file from the <a href="http://downloads.puppetlabs.com/solaris/">Puppet Labs download</a> site.<br /><br />
+<!-- more -->
+<pre>wget&nbsp;http://downloads.puppetlabs.com/solaris/facter@1.6.12,5.11-819.p5p<br />wget http://downloads.puppetlabs.com/solaris/hiera@1.0.0,5.11-116.p5p<br />wget http://downloads.puppetlabs.com/solaris/puppet@3.0.0,5.11-9211.p5p<br /></pre><br />Upload them to you local repository:<br /><br /><pre>pkgrecv -s ./facter\@1.6.12\,5.11-819.p5p -d /repo/software/ '*'<br />pkgrecv -s ./hiera\@1.0.0\,5.11-116.p5p -d /repo/software/ '*'<br />pkgrecv -s ./puppet\@3.0.0\,5.11-9211.p5p -d /repo/software/ '*'<br /></pre><br />And then restart the local repository, note for me I had to do disable and enable, a refresh did not appear to pickup the new publisher.<br /><br /><pre>svcadm disable svc:/application/pkg/server:homeips<br />svcadm enable svc:/application/pkg/server:homeips<br /><br />pkgrepo list -s http://192.168.0.30:82 -p puppetlabs.com<br />PUBLISHER      NAME                                          O VERSION<br />puppetlabs.com application/facter                              1.6.12,5.11-819:20120921T230613Z<br />puppetlabs.com application/hiera                               1.0.0,5.11-116:20120921T230233Z<br />puppetlabs.com system/management/puppet                        3.0.0,5.11-9211:20120921T230759Z<br /></pre><br />Once confirmed, add the publisher check again and install<br /><br /><pre>pkg set-publisher -p http://192.168.0.30:82/puppetlabs.com puppetlabs.com<br /><br />pkg list -n facter hiera puppet<br />NAME (PUBLISHER)                                  VERSION                    IFO<br />application/facter (puppetlabs.com)               1.6.12-819                 ---<br />application/hiera (puppetlabs.com)                1.0.0-116                  ---<br />system/management/puppet (puppetlabs.com)         3.0.0-9211                 ---<br /><br />pkg install facter hiera puppet<br /></pre><br />This would also install ruby-18 as that is a&nbsp;prerequisite&nbsp;package. So there you have <a href="http://puppetlabs.com/">Puppet </a>3.0 available in your own IPS repository.<br /><br />
+</div>]]></content><author><name>Alan Chalmers</name></author><category term="blog" /><category term="Ruby" /><category term="puppet" /><category term="work" /><category term="IPS" /><category term="opensolaris" /><category term="Solaris 11" /><category term="solaris" /><category term="Ruby" /><category term="puppet" /><category term="work" /><category term="IPS" /><category term="opensolaris" /><category term="Solaris 11" /><category term="solaris" /><summary type="html"><![CDATA[A recent post Solaris Packages for Puppet 3.0.0-rc7, Facter 1.6.0 and Hiera 1.0.0&nbsp;on a puppet mailing list caught my eye.While gems has a&nbsp;nifty&nbsp;little package management system of it's own, &nbsp;it is possible be that your machines do not have direct access to the interent so&nbsp;having a local IPS repo is handy. I'll&nbsp;demonstrate&nbsp;how to add these packages to you own repository.&nbsp;This assumes you have already setup your&nbsp;own&nbsp;local repo.First up retrive the IPS package file from the Puppet Labs download site. wget&nbsp;http://downloads.puppetlabs.com/solaris/facter@1.6.12,5.11-819.p5pwget http://downloads.puppetlabs.com/solaris/hiera@1.0.0,5.11-116.p5pwget http://downloads.puppetlabs.com/solaris/puppet@3.0.0,5.11-9211.p5pUpload them to you local repository:pkgrecv -s ./facter\@1.6.12\,5.11-819.p5p -d /repo/software/ '*'pkgrecv -s ./hiera\@1.0.0\,5.11-116.p5p -d /repo/software/ '*'pkgrecv -s ./puppet\@3.0.0\,5.11-9211.p5p -d /repo/software/ '*'And then restart the local repository, note for me I had to do disable and enable, a refresh did not appear to pickup the new publisher.svcadm disable svc:/application/pkg/server:homeipssvcadm enable svc:/application/pkg/server:homeipspkgrepo list -s http://192.168.0.30:82 -p puppetlabs.comPUBLISHER NAME O VERSIONpuppetlabs.com application/facter 1.6.12,5.11-819:20120921T230613Zpuppetlabs.com application/hiera 1.0.0,5.11-116:20120921T230233Zpuppetlabs.com system/management/puppet 3.0.0,5.11-9211:20120921T230759ZOnce confirmed, add the publisher check again and installpkg set-publisher -p http://192.168.0.30:82/puppetlabs.com puppetlabs.compkg list -n facter hiera puppetNAME (PUBLISHER) VERSION IFOapplication/facter (puppetlabs.com) 1.6.12-819 ---application/hiera (puppetlabs.com) 1.0.0-116 ---system/management/puppet (puppetlabs.com) 3.0.0-9211 ---pkg install facter hiera puppetThis would also install ruby-18 as that is a&nbsp;prerequisite&nbsp;package. So there you have Puppet 3.0 available in your own IPS repository.]]></summary></entry><entry><title type="html">OEL Handsfree install for Oracle VM Manager part 2</title><link href="http://www.resilvered.com/2012/07/oel-handsfree-install-for-oracle-vm.html" rel="alternate" type="text/html" title="OEL Handsfree install for Oracle VM Manager part 2" /><published>2012-07-21T07:46:00+00:00</published><updated>2012-07-21T07:46:00+00:00</updated><id>http://www.resilvered.com/2012/07/oel-handsfree-install-for-oracle-vm</id><content type="html" xml:base="http://www.resilvered.com/2012/07/oel-handsfree-install-for-oracle-vm.html"><![CDATA[<div class="css-full-post-content js-full-post-content">
+So part one finished up with a Virtualbox VM , two blank disk and the OEL CD image in the&nbsp;virtual&nbsp;CD drive.<br /><br />Fair warning I have taken some liberty with&nbsp;technical&nbsp;preciseness&nbsp;of handsfree, but it's&nbsp;pretty&nbsp;close. If some knows how I can second commands to the guest from the host command line let me know, virt-install maybe.<br /><br />So this is&nbsp;straight&nbsp;forward and I have covered some of these techniques in other posts like <a href="http://resilvered.blogspot.com.au/2011/11/linux-kickstart-for-solaris-admins-so.html">Kickstart for Solaris Admins</a>&nbsp;or my even older <a href="http://resilvered.blogspot.com.au/2011/01/reinstall-menu-option-grub.html">Grub menu reinstall</a>. Startup the VB guest it should boot off your attached CD/DVD image. and the welcome screen press TAB key<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="http://2.bp.blogspot.com/-0V77HOqFfQ8/UAkZqNJy8HI/AAAAAAAAAkc/RfXoG8TczHI/s1600/Screen+Shot+2012-07-20+at+6.39.56+PM.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="264" src="http://2.bp.blogspot.com/-0V77HOqFfQ8/UAkZqNJy8HI/AAAAAAAAAkc/RfXoG8TczHI/s320/Screen+Shot+2012-07-20+at+6.39.56+PM.png" width="320" /></a></div>Thanks to the bright red Oracle colours &nbsp;it's not so easy to see but you need to add the following line to your boot command after you have pressed TAB<span style="background-color: white;"></span><br /><pre>ks=http://dl.dropbox.com/u/2236361/kick/ovm.cfg</pre><br />This will install OEL 6.1 on the VM that was prepared in the <a href="http://resilvered.blogspot.com.au/2012/07/virtualbox-command-line-and-oracle-vm.html">part 1</a>&nbsp;and power if off when the installation is finished. Of&nbsp;course&nbsp;you may which to&nbsp;<a href="http://dl.dropbox.com/u/2236361/kick/ovm.cfg">download&nbsp;the ovm.cfg kickstart file</a> and make changes to suit your setup.<br /><br />Last bit to get ready for part 3 is to attach the VM Manager software image and boot the guest up again.<br /><br /><pre>VBoxManage storageattach "OVM" --storagectl "IDE Controller" --type dvddrive --device 0 --port 0 --medium "/Volumes/ISO/Oracle/OracleVM-Manager-3.1.1.iso"<br />VBoxManage startvm "OVM"<br /></pre>
+</div>]]></content><author><name>Alan Chalmers</name></author><category term="blog" /><category term="kickstart" /><category term="Oracle VM Manager" /><category term="Linux" /><category term="virtualbox" /><category term="OVM" /><category term="oracle" /><category term="kickstart" /><category term="Oracle VM Manager" /><category term="Linux" /><category term="virtualbox" /><category term="OVM" /><category term="oracle" /><summary type="html"><![CDATA[So part one finished up with a Virtualbox VM , two blank disk and the OEL CD image in the&nbsp;virtual&nbsp;CD drive.Fair warning I have taken some liberty with&nbsp;technical&nbsp;preciseness&nbsp;of handsfree, but it's&nbsp;pretty&nbsp;close. If some knows how I can second commands to the guest from the host command line let me know, virt-install maybe.So this is&nbsp;straight&nbsp;forward and I have covered some of these techniques in other posts like Kickstart for Solaris Admins&nbsp;or my even older Grub menu reinstall. Startup the VB guest it should boot off your attached CD/DVD image. and the welcome screen press TAB keyThanks to the bright red Oracle colours &nbsp;it's not so easy to see but you need to add the following line to your boot command after you have pressed TABks=http://dl.dropbox.com/u/2236361/kick/ovm.cfgThis will install OEL 6.1 on the VM that was prepared in the part 1&nbsp;and power if off when the installation is finished. Of&nbsp;course&nbsp;you may which to&nbsp;download&nbsp;the ovm.cfg kickstart file and make changes to suit your setup.Last bit to get ready for part 3 is to attach the VM Manager software image and boot the guest up again.VBoxManage storageattach "OVM" --storagectl "IDE Controller" --type dvddrive --device 0 --port 0 --medium "/Volumes/ISO/Oracle/OracleVM-Manager-3.1.1.iso"VBoxManage startvm "OVM"]]></summary></entry><entry><title type="html">VirtualBox command line and Oracle VM Manager 3.1.1 part 1</title><link href="http://www.resilvered.com/2012/07/virtualbox-command-line-and-oracle-vm.html" rel="alternate" type="text/html" title="VirtualBox command line and Oracle VM Manager 3.1.1 part 1" /><published>2012-07-09T13:44:00+00:00</published><updated>2012-07-09T13:44:00+00:00</updated><id>http://www.resilvered.com/2012/07/virtualbox-command-line-and-oracle-vm</id><content type="html" xml:base="http://www.resilvered.com/2012/07/virtualbox-command-line-and-oracle-vm.html"><![CDATA[<div class="css-full-post-content js-full-post-content">
+Rather than wait until I have the whole thing polished I thought I'd do a multipart entry on building Oracle VM Manager VM and installing the software. Now the previous version 3.0.3 had a VirtualBox <a href="http://www.oracle.com/technetwork/server-storage/vm/template-1482544.html">template available</a>. The current version 3.1.1 doesn't, at least not that I can find, so this is a kinda of roll your own template.<br /><br />Tools used for this job:<br /><ul><li>Virtual Box 4.1.8 Oracle VM&nbsp;</li><li>Manager ISO 3.1.1&nbsp;</li><li>OEL R6U1 ISO</li></ul><div><br /></div><div>Oh and somewhere to run VirtualBox, in this case my Mac Mini</div><div><br /></div><div>Setting&nbsp;up the VM guest I based it off the original 3.0.3 VM template so 64 bit Linux 4GB Ram and two disks one for the OS and one to install the software on with a bridged interface. Now I could say go away and do that, but where would the fun in that be. Lets script it and create from the command line:</div><div><br /></div><pre>#!/bin/sh<br />#<br /># create_ovm_vm create a VirtualBox vm suitable for installing OracleVM Manager software<br />#<br />home=~<br />vmname=OVM<br />vmstorage="${home}/VirtualBox VMs/${vmname}"<br />bootimage="/ISO/Oracle/OracleLinux-R6-U1-Server-x86_64-dvd.iso"<br />#<br /># Use "VBoxManage list bridgedifs" to find the names of your available interfaces<br />#<br />nic="en0: Ethernet" # Mac mini<br />#nic="e1000g0 - Intel PRO/1000 Gigabit Ethernet" # Solaris Box<br />#nic="en1: AirPort" # Macbook AirPort<br />#<br />VBoxManage createvm --name "${vmname}" --register --ostype Oracle_64<br />VBoxManage modifyvm "${vmname}" --memory 2048  --nic1 bridged --bridgeadapter1 "${nic}" --rtcuseutc on --boot1 none<br />VBoxManage createhd --filename "${vmstorage}/${vmname}-disk01.vdi" --size 15000 <br />VBoxManage createhd --filename "${vmstorage}/${vmname}-disk02.vdi" --size 10000 <br />VBoxManage storagectl "${vmname}" --name "IDE Controller" --add ide --controller PIIX4 --hostiocache on<br />VBoxManage storageattach "${vmname}" --storagectl "IDE Controller" --type dvddrive --device 0 --port 0 --medium "${bootimage}"<br />VBoxManage storagectl "${vmname}" --name "SATA Controller" --add sata --controller IntelAhci --sataportcount 2 --bootable on --hostiocache on<br />VBoxManage storageattach "${vmname}" --storagectl "SATA Controller" --type hdd --port 0 --medium "${vmstorage}/${vmname}-disk01.vdi"<br />VBoxManage storageattach "${vmname}" --storagectl "SATA Controller" --type hdd --port 1 --medium "${vmstorage}/${vmname}-disk02.vdi"<br />VBoxManage showvminfo ${vmname} --details<br /></pre><br />Make sure for your build you adjust the the location of the dvd install image, and part 2 will talk about the handsfree install, along with the name of your bridged interface,<span style="font-family: 'Courier New', Courier, monospace;"><b>VBoxManage list bridgedifs</b></span> to find that one out. &nbsp;To save the typing or cut and paste error the script can be <a href="https://dl.dropbox.com/u/2236361/scripts/create_ovm_vm.sh">downloaded from here</a>.<br /><br />Note the command line interface for VBoxMange has&nbsp;changed&nbsp;a bit over the version so if you have a really old version this may not work. Of course if you find&nbsp;yourself&nbsp;looking at this years after I wrote it hopefully the syntax is still&nbsp;compatible&nbsp;with newer releases.<br /><br />Part 2 will cover the handsfree build of the guest to a suitable config for installing Oracle VM Manager 3.1.1<br /><br />
+</div>]]></content><author><name>Alan Chalmers</name></author><category term="blog" /><category term="Oracle VM Manager" /><category term="Linux" /><category term="virtualbox" /><category term="VirtualBox command line" /><category term="OVM" /><category term="Oracle VM Manager" /><category term="Linux" /><category term="virtualbox" /><category term="VirtualBox command line" /><category term="OVM" /><summary type="html"><![CDATA[Rather than wait until I have the whole thing polished I thought I'd do a multipart entry on building Oracle VM Manager VM and installing the software. Now the previous version 3.0.3 had a VirtualBox template available. The current version 3.1.1 doesn't, at least not that I can find, so this is a kinda of roll your own template.Tools used for this job:Virtual Box 4.1.8 Oracle VM&nbsp;Manager ISO 3.1.1&nbsp;OEL R6U1 ISOOh and somewhere to run VirtualBox, in this case my Mac MiniSetting&nbsp;up the VM guest I based it off the original 3.0.3 VM template so 64 bit Linux 4GB Ram and two disks one for the OS and one to install the software on with a bridged interface. Now I could say go away and do that, but where would the fun in that be. Lets script it and create from the command line:#!/bin/sh## create_ovm_vm create a VirtualBox vm suitable for installing OracleVM Manager software#home=~vmname=OVMvmstorage="${home}/VirtualBox VMs/${vmname}"bootimage="/ISO/Oracle/OracleLinux-R6-U1-Server-x86_64-dvd.iso"## Use "VBoxManage list bridgedifs" to find the names of your available interfaces#nic="en0: Ethernet" # Mac mini#nic="e1000g0 - Intel PRO/1000 Gigabit Ethernet" # Solaris Box#nic="en1: AirPort" # Macbook AirPort#VBoxManage createvm --name "${vmname}" --register --ostype Oracle_64VBoxManage modifyvm "${vmname}" --memory 2048 --nic1 bridged --bridgeadapter1 "${nic}" --rtcuseutc on --boot1 noneVBoxManage createhd --filename "${vmstorage}/${vmname}-disk01.vdi" --size 15000 VBoxManage createhd --filename "${vmstorage}/${vmname}-disk02.vdi" --size 10000 VBoxManage storagectl "${vmname}" --name "IDE Controller" --add ide --controller PIIX4 --hostiocache onVBoxManage storageattach "${vmname}" --storagectl "IDE Controller" --type dvddrive --device 0 --port 0 --medium "${bootimage}"VBoxManage storagectl "${vmname}" --name "SATA Controller" --add sata --controller IntelAhci --sataportcount 2 --bootable on --hostiocache onVBoxManage storageattach "${vmname}" --storagectl "SATA Controller" --type hdd --port 0 --medium "${vmstorage}/${vmname}-disk01.vdi"VBoxManage storageattach "${vmname}" --storagectl "SATA Controller" --type hdd --port 1 --medium "${vmstorage}/${vmname}-disk02.vdi"VBoxManage showvminfo ${vmname} --detailsMake sure for your build you adjust the the location of the dvd install image, and part 2 will talk about the handsfree install, along with the name of your bridged interface,VBoxManage list bridgedifs to find that one out. &nbsp;To save the typing or cut and paste error the script can be downloaded from here.Note the command line interface for VBoxMange has&nbsp;changed&nbsp;a bit over the version so if you have a really old version this may not work. Of course if you find&nbsp;yourself&nbsp;looking at this years after I wrote it hopefully the syntax is still&nbsp;compatible&nbsp;with newer releases.Part 2 will cover the handsfree build of the guest to a suitable config for installing Oracle VM Manager 3.1.1]]></summary></entry></feed>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Puppet 3 and Solaris 11 IPS &middot; Al's Ramblings
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/custom.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <!-- JS -->
+  <script type="text/javascript" src="/assets/js/jquery-1.11.1.min.js"></script>
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-52963682-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  <body class="theme-base-0b">
+
+    <div class="sidebar">
+  
+    <div class="sidebar-about">
+      <h1>
+        <a href="">
+          Al's Ramblings
+        </a>
+      </h1>
+      <p class="lead">Automation, UNIX and other assorted random thoughts</p>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="">home</a>
+
+      
+
+      
+      
+        
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/archive/">archives</a>
+          
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/presentations/">presentations</a>
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/tags/">tags</a>
+          
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+
+      </nav>
+      <div id="social-bar">
+        <a href="http://www.linkedin.com/in/alanchalmers/" title="Alan Chalmers on LinkedIn" rel="me"><i class="fa fa-linkedin-square fa-2x"></i></a>
+        <a href="https://github.com/bigal/" title="Alan Chalmers on GitHub" rel="me"><i class="fa fa-github-square fa-2x"></i></a> 
+        <a href="https://twitter.com/bigal" title="Alan Chalmers on Twitter" rel="me"><i class="fa fa-twitter-square fa-2x"></i></a>
+       <a href="https://plus.google.com/+AlanChalmers/" title="Alan Chalmers on Google+" rel="me"><i class="fa fa-google-plus-square fa-2x"></i></a> 
+      <p>&copy; 2022. All rights reserved.</p>
+    </div>
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">Puppet 3 and Solaris 11 IPS</h1>
+  <span class="post-date">30 Sep 2012</span>
+  <div class="css-full-post-content js-full-post-content">
+A recent post <a href="https://groups.google.com/forum/?fromgroups=#!topic/puppet-users/-mnIqWAPb8U">Solaris Packages for Puppet 3.0.0-rc7, Facter 1.6.0 and Hiera 1.0.0</a>&nbsp;on a puppet mailing list caught my eye.<br /><br />While gems has a&nbsp;nifty&nbsp;little package management system of it's own, &nbsp;it is possible be that your machines do not have direct access to the interent so&nbsp;having a local IPS repo is handy. I'll&nbsp;demonstrate&nbsp;how to add these packages to you own repository.&nbsp;This assumes you have already <a href="http://resilvered.blogspot.com.au/2012/06/how-to-create-mulitple-solaris.html">setup your&nbsp;own&nbsp;local repo</a>.<br /><br />First up retrive the IPS package file from the <a href="http://downloads.puppetlabs.com/solaris/">Puppet Labs download</a> site.<br /><br />
+<!-- more -->
+<pre>wget&nbsp;http://downloads.puppetlabs.com/solaris/facter@1.6.12,5.11-819.p5p<br />wget http://downloads.puppetlabs.com/solaris/hiera@1.0.0,5.11-116.p5p<br />wget http://downloads.puppetlabs.com/solaris/puppet@3.0.0,5.11-9211.p5p<br /></pre><br />Upload them to you local repository:<br /><br /><pre>pkgrecv -s ./facter\@1.6.12\,5.11-819.p5p -d /repo/software/ '*'<br />pkgrecv -s ./hiera\@1.0.0\,5.11-116.p5p -d /repo/software/ '*'<br />pkgrecv -s ./puppet\@3.0.0\,5.11-9211.p5p -d /repo/software/ '*'<br /></pre><br />And then restart the local repository, note for me I had to do disable and enable, a refresh did not appear to pickup the new publisher.<br /><br /><pre>svcadm disable svc:/application/pkg/server:homeips<br />svcadm enable svc:/application/pkg/server:homeips<br /><br />pkgrepo list -s http://192.168.0.30:82 -p puppetlabs.com<br />PUBLISHER      NAME                                          O VERSION<br />puppetlabs.com application/facter                              1.6.12,5.11-819:20120921T230613Z<br />puppetlabs.com application/hiera                               1.0.0,5.11-116:20120921T230233Z<br />puppetlabs.com system/management/puppet                        3.0.0,5.11-9211:20120921T230759Z<br /></pre><br />Once confirmed, add the publisher check again and install<br /><br /><pre>pkg set-publisher -p http://192.168.0.30:82/puppetlabs.com puppetlabs.com<br /><br />pkg list -n facter hiera puppet<br />NAME (PUBLISHER)                                  VERSION                    IFO<br />application/facter (puppetlabs.com)               1.6.12-819                 ---<br />application/hiera (puppetlabs.com)                1.0.0-116                  ---<br />system/management/puppet (puppetlabs.com)         3.0.0-9211                 ---<br /><br />pkg install facter hiera puppet<br /></pre><br />This would also install ruby-18 as that is a&nbsp;prerequisite&nbsp;package. So there you have <a href="http://puppetlabs.com/">Puppet </a>3.0 available in your own IPS repository.<br /><br />
+</div>
+
+</div>
+<div class="custom-social-buttons">   
+  <div class="share-buttons-label">
+    <span>Share with friends</span>
+  </div>
+  <div class="custom-social-button twitter">
+    <a id="twitter-link" href="#"><i class="fa fa-twitter-square fa-2x"></i></a>
+  </div>
+  <div class="custom-social-button linkedin">
+    <a id="linkedin-link" href="#"><i class="fa fa-linkedin-square fa-2x"></i></a>
+  </div>
+  <div class="custom-social-button googleplus">
+    <a id="googleplus-link" href="#"><i class="fa fa-google-plus-square fa-2x"></i></a>
+  </div>
+    <div class="custom-social-button reddit">
+    <a id="reddit-link" href="#"><i class="fa fa-reddit-square fa-2x"></i></a>
+  </div>
+  <script type="text/javascript">
+	window.onload = function(){				
+		var blogDomain = encodeURIComponent("http://www.resilvered.com");
+		var pageTitleSpaces = encodeURIComponent("Puppet 3 and Solaris 11 IPS") + "&amp;";
+		var pageID = "/2012/09/puppet-3-and-solaris-11-ips";
+		var pageURL = encodeURIComponent(pageID) + "&amp;";
+			
+		var twitterPartOne = "https://twitter.com/intent/tweet?original_referer=";
+		var twitterPartTwo = "text=";
+		var twitterPartThree = "tw_p=tweetbutton&amp;url=";
+		var twitterPartFour = "via=bigal";
+		var twitterUrl = twitterPartOne + blogDomain + pageURL + twitterPartTwo + pageTitleSpaces + twitterPartThree + blogDomain +  pageURL + twitterPartFour;
+		var twitterLink = document.getElementById("twitter-link");
+		twitterLink.onclick = function() {popUp=window.open(twitterUrl, 'popupwindow', 'scrollbars=yes,width=600,height=400');popUp.focus();return false };
+		
+		var linkedinPartOne = "http://www.linkedin.com/shareArticle?mini=true&url=";
+		var linkedinPartTwo = "&title=";
+		var linkedinPartThree = "&summary=";
+		var linkedinPartFour = "&source=";
+		var linkedinUrl = linkedinPartOne + blogDomain + pageURL + linkedinPartTwo + pageTitleSpaces + linkedinPartFour + "@bigal";
+		var linkedInLink = document.getElementById("linkedin-link");
+		linkedInLink.onclick = function() {popUp=window.open(linkedinUrl, 'popupwindow', 'scrollbars=yes,width=600,height=400');popUp.focus();return false };
+		
+		var googlePlusPartOne = "https://plus.google.com/share?url=";
+		var googlePlusUrl = googlePlusPartOne + blogDomain + pageID;
+		var googlePlusLink = document.getElementById("googleplus-link");
+		googlePlusLink.onclick = function() {popUp=window.open(googlePlusUrl, 'popupwindow', 'scrollbars=yes,width=600,height=400');popUp.focus();return false };
+
+        var redditPartOne = "http://reddit.com/submit?url=";
+        var redditPartTwo = "&title=";
+		var redditUrl = redditPartOne + blogDomain + pageURL + redditPartTwo + pageTitleSpaces;
+		var redditLink = document.getElementById("reddit-link");
+		redditLink.onclick = function() {popUp=window.open(redditUrl, 'popupwindow', 'scrollbars=yes,width=600,height=400');popUp.focus();return false };
+
+	};
+</script>
+
+
+</div>
+
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/blog/2014/08/26/Installing-Jekyll-on-CentOS-7/">
+            Installing Jekyll on CentOS 7
+            <small>26 Aug 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/blog/2014/08/12/HHVM-on-CentOS6/">
+            Installing HHVM 3.2.0 on CentOS 6.5
+            <small>12 Aug 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/blog/2014/07/28/Oracle-Linux-7-released/">
+            Oracle Linux 7 released
+            <small>28 Jul 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+      
+    </div>
+
+  </body>
+</html>
