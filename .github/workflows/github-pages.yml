@@ -17,6 +17,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gems-
       - uses: helaili/jekyll-action@2.4.0
-        with:                               
+        with:
+          target_branch: 'gh-pages'
           token: ${{ secrets.GITHUB_TOKEN }}
-
