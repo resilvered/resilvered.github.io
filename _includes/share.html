@@ -21,13 +21,9 @@
 		var linkedInLink = document.getElementById("linkedin-link");
 		linkedInLink.onclick = function() {popUp=window.open(linkedinUrl, 'popupwindow', 'scrollbars=yes,width=600,height=400');popUp.focus();return false };
 		
-		var googlePlusPartOne = "https://plus.google.com/share?url=";
-		var googlePlusUrl = googlePlusPartOne + blogDomain + pageID;
-		var googlePlusLink = document.getElementById("googleplus-link");
-		googlePlusLink.onclick = function() {popUp=window.open(googlePlusUrl, 'popupwindow', 'scrollbars=yes,width=600,height=400');popUp.focus();return false };
 
-        var redditPartOne = "http://reddit.com/submit?url=";
-        var redditPartTwo = "&title=";
+                var redditPartOne = "http://reddit.com/submit?url=";
+                var redditPartTwo = "&title=";
 		var redditUrl = redditPartOne + blogDomain + pageURL + redditPartTwo + pageTitleSpaces;
 		var redditLink = document.getElementById("reddit-link");
 		redditLink.onclick = function() {popUp=window.open(redditUrl, 'popupwindow', 'scrollbars=yes,width=600,height=400');popUp.focus();return false };
