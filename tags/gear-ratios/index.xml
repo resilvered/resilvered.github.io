@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Gear-Ratios on Al&#39;s Ramblings</title>
+    <link>http://10.0.0.45:1313/tags/gear-ratios/</link>
+    <description>Recent content in Gear-Ratios on Al&#39;s Ramblings</description>
+    <generator>Hugo</generator>
+    <language>en-au</language>
+    <lastBuildDate>Sun, 21 Jun 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://10.0.0.45:1313/tags/gear-ratios/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SRAM 48/33 × 10-36 vs Shimano 50/34 × 11-34: The Gear Range Showdown</title>
+      <link>http://10.0.0.45:1313/posts/2026-06-21-sram-vs-shimano-gear-range/</link>
+      <pubDate>Sun, 21 Jun 2026 00:00:00 +0000</pubDate>
+      <guid>http://10.0.0.45:1313/posts/2026-06-21-sram-vs-shimano-gear-range/</guid>
+      <description>&lt;p&gt;If you&amp;rsquo;re building a road bike or debating a groupset upgrade in 2026, two configurations dominate the conversation: &lt;strong&gt;SRAM&amp;rsquo;s 48/33 crankset with a 10-36 cassette&lt;/strong&gt; and &lt;strong&gt;Shimano&amp;rsquo;s 50/34 with an 11-34&lt;/strong&gt;. One promises wider range. The other leans on tradition. But which actually delivers where it counts — on the climb, in the sprint, and across every shift in between?&lt;/p&gt;
+&lt;p&gt;I ran the numbers. Here&amp;rsquo;s what they say.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;the-setups-at-a-glance&#34;&gt;The setups at a glance&lt;/h2&gt;
+&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;&lt;/th&gt;
+					&lt;th&gt;SRAM&lt;/th&gt;
+					&lt;th&gt;Shimano&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Crankset&lt;/td&gt;
+					&lt;td&gt;48/33T&lt;/td&gt;
+					&lt;td&gt;50/34T&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Cassette&lt;/td&gt;
+					&lt;td&gt;10-36T (12-speed)&lt;/td&gt;
+					&lt;td&gt;11-34T (12-speed)&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Cassette cogs&lt;/td&gt;
+					&lt;td&gt;10-11-12-13-15-17-19-21-24-28-32-36&lt;/td&gt;
+					&lt;td&gt;11-12-13-14-15-17-19-21-24-27-30-34&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Chainring gap&lt;/td&gt;
+					&lt;td&gt;15T (145% jump)&lt;/td&gt;
+					&lt;td&gt;16T (147% jump)&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Right away, two design philosophies emerge. SRAM goes wide at both ends — a 10T high cog and a 36T bailout. Shimano plays it safer with an 11T start and 34T finish, relying on a bigger 50T chainring for top-end speed.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

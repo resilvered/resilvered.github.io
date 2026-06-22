@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>SRAM 48/33 × 10-36 vs Shimano 50/34 × 11-34: The Gear Range Showdown | Al&#39;s Ramblings</title>
+<meta name="keywords" content="cycling, gear-ratios, sram, shimano, drivetrain">
+<meta name="description" content="If you&rsquo;re building a road bike or debating a groupset upgrade in 2026, two configurations dominate the conversation: SRAM&rsquo;s 48/33 crankset with a 10-36 cassette and Shimano&rsquo;s 50/34 with an 11-34. One promises wider range. The other leans on tradition. But which actually delivers where it counts — on the climb, in the sprint, and across every shift in between?
+I ran the numbers. Here&rsquo;s what they say.
+
+The setups at a glance
+
+	
+			
+					
+					SRAM
+					Shimano
+			
+	
+	
+			
+					Crankset
+					48/33T
+					50/34T
+			
+			
+					Cassette
+					10-36T (12-speed)
+					11-34T (12-speed)
+			
+			
+					Cassette cogs
+					10-11-12-13-15-17-19-21-24-28-32-36
+					11-12-13-14-15-17-19-21-24-27-30-34
+			
+			
+					Chainring gap
+					15T (145% jump)
+					16T (147% jump)
+			
+	
+
+Right away, two design philosophies emerge. SRAM goes wide at both ends — a 10T high cog and a 36T bailout. Shimano plays it safer with an 11T start and 34T finish, relying on a bigger 50T chainring for top-end speed.">
+<meta name="author" content="Alan Chalmers">
+<link rel="canonical" href="http://10.0.0.45:1313/posts/2026-06-21-sram-vs-shimano-gear-range/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.cd9298b33628769aa1bc1acebbbfd7aa11ce81dfe03484d479e1907760249a1d.css" integrity="sha256-zZKYszYodpqhvBrOu7/XqhHOgd/gNITUeeGQd2Akmh0=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://10.0.0.45:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://10.0.0.45:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://10.0.0.45:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://10.0.0.45:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://10.0.0.45:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://10.0.0.45:1313/posts/2026-06-21-sram-vs-shimano-gear-range/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="http://10.0.0.45:1313/" accesskey="h" title="Al&#39;s Ramblings (Alt + H)">Al&#39;s Ramblings</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+            <li>
+                <a href="http://10.0.0.45:1313/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://10.0.0.45:1313/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://10.0.0.45:1313/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://10.0.0.45:1313/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <nav class="breadcrumbs" role="navigation" aria-label="Breadcrumb">
+            <a href="/">Home</a>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+            <a href="/posts/">Posts</a>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+        <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+</nav>
+    <h1 class="post-title entry-hint-parent">
+      SRAM 48/33 × 10-36 vs Shimano 50/34 × 11-34: The Gear Range Showdown
+    </h1>
+    <div class="post-meta">
+
+<span title='2026-06-21 00:00:00 +0000 UTC'>21 June 2026</span>&nbsp;·&nbsp;<span>8 min</span>&nbsp;·&nbsp;<span>Alan Chalmers</span>
+
+</div>
+  </header> 
+  <div class="post-content md-content"><p>If you&rsquo;re building a road bike or debating a groupset upgrade in 2026, two configurations dominate the conversation: <strong>SRAM&rsquo;s 48/33 crankset with a 10-36 cassette</strong> and <strong>Shimano&rsquo;s 50/34 with an 11-34</strong>. One promises wider range. The other leans on tradition. But which actually delivers where it counts — on the climb, in the sprint, and across every shift in between?</p>
+<p>I ran the numbers. Here&rsquo;s what they say.</p>
+<hr>
+<h2 id="the-setups-at-a-glance">The setups at a glance<a hidden class="anchor" aria-hidden="true" href="#the-setups-at-a-glance">#</a></h2>
+<table>
+	<thead>
+			<tr>
+					<th></th>
+					<th>SRAM</th>
+					<th>Shimano</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>Crankset</td>
+					<td>48/33T</td>
+					<td>50/34T</td>
+			</tr>
+			<tr>
+					<td>Cassette</td>
+					<td>10-36T (12-speed)</td>
+					<td>11-34T (12-speed)</td>
+			</tr>
+			<tr>
+					<td>Cassette cogs</td>
+					<td>10-11-12-13-15-17-19-21-24-28-32-36</td>
+					<td>11-12-13-14-15-17-19-21-24-27-30-34</td>
+			</tr>
+			<tr>
+					<td>Chainring gap</td>
+					<td>15T (145% jump)</td>
+					<td>16T (147% jump)</td>
+			</tr>
+	</tbody>
+</table>
+<p>Right away, two design philosophies emerge. SRAM goes wide at both ends — a 10T high cog and a 36T bailout. Shimano plays it safer with an 11T start and 34T finish, relying on a bigger 50T chainring for top-end speed.</p>
+<hr>
+<h2 id="gear-ratios-the-full-picture">Gear ratios: the full picture<a hidden class="anchor" aria-hidden="true" href="#gear-ratios-the-full-picture">#</a></h2>
+<p>A gear ratio is simply chainring teeth divided by cog teeth. Higher numbers mean more speed potential (harder to push). Lower numbers mean easier climbing.</p>
+<h3 id="sram-4833--10-36">SRAM 48/33 × 10-36<a hidden class="anchor" aria-hidden="true" href="#sram-4833--10-36">#</a></h3>
+<table>
+	<thead>
+			<tr>
+					<th>Cog</th>
+					<th>48T ratio</th>
+					<th>33T ratio</th>
+					<th>Gear inches (48T)</th>
+					<th>Gear inches (33T)</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>10T</td>
+					<td>4.800</td>
+					<td>3.300</td>
+					<td>135.8&quot;</td>
+					<td>93.4&quot;</td>
+			</tr>
+			<tr>
+					<td>11T</td>
+					<td>4.364</td>
+					<td>3.000</td>
+					<td>123.5&quot;</td>
+					<td>84.9&quot;</td>
+			</tr>
+			<tr>
+					<td>12T</td>
+					<td>4.000</td>
+					<td>2.750</td>
+					<td>113.2&quot;</td>
+					<td>77.8&quot;</td>
+			</tr>
+			<tr>
+					<td>13T</td>
+					<td>3.692</td>
+					<td>2.538</td>
+					<td>104.5&quot;</td>
+					<td>71.8&quot;</td>
+			</tr>
+			<tr>
+					<td>15T</td>
+					<td>3.200</td>
+					<td>2.200</td>
+					<td>90.6&quot;</td>
+					<td>62.3&quot;</td>
+			</tr>
+			<tr>
+					<td>17T</td>
+					<td>2.824</td>
+					<td>1.941</td>
+					<td>79.9&quot;</td>
+					<td>54.9&quot;</td>
+			</tr>
+			<tr>
+					<td>19T</td>
+					<td>2.526</td>
+					<td>1.737</td>
+					<td>71.5&quot;</td>
+					<td>49.2&quot;</td>
+			</tr>
+			<tr>
+					<td>21T</td>
+					<td>2.286</td>
+					<td>1.571</td>
+					<td>64.7&quot;</td>
+					<td>44.5&quot;</td>
+			</tr>
+			<tr>
+					<td>24T</td>
+					<td>2.000</td>
+					<td>1.375</td>
+					<td>56.6&quot;</td>
+					<td>38.9&quot;</td>
+			</tr>
+			<tr>
+					<td>28T</td>
+					<td>1.714</td>
+					<td>1.179</td>
+					<td>48.5&quot;</td>
+					<td>33.4&quot;</td>
+			</tr>
+			<tr>
+					<td>32T</td>
+					<td>1.500</td>
+					<td>1.031</td>
+					<td>42.5&quot;</td>
+					<td>29.2&quot;</td>
+			</tr>
+			<tr>
+					<td>36T</td>
+					<td>1.333</td>
+					<td><strong>0.917</strong></td>
+					<td>37.7&quot;</td>
+					<td>25.9&quot;</td>
+			</tr>
+	</tbody>
+</table>
+<h3 id="shimano-5034--11-34">Shimano 50/34 × 11-34<a hidden class="anchor" aria-hidden="true" href="#shimano-5034--11-34">#</a></h3>
+<table>
+	<thead>
+			<tr>
+					<th>Cog</th>
+					<th>50T ratio</th>
+					<th>34T ratio</th>
+					<th>Gear inches (50T)</th>
+					<th>Gear inches (34T)</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>11T</td>
+					<td>4.545</td>
+					<td>3.091</td>
+					<td>128.6&quot;</td>
+					<td>87.5&quot;</td>
+			</tr>
+			<tr>
+					<td>12T</td>
+					<td>4.167</td>
+					<td>2.833</td>
+					<td>117.9&quot;</td>
+					<td>80.2&quot;</td>
+			</tr>
+			<tr>
+					<td>13T</td>
+					<td>3.846</td>
+					<td>2.615</td>
+					<td>108.8&quot;</td>
+					<td>74.0&quot;</td>
+			</tr>
+			<tr>
+					<td>14T</td>
+					<td>3.571</td>
+					<td>2.429</td>
+					<td>101.1&quot;</td>
+					<td>68.7&quot;</td>
+			</tr>
+			<tr>
+					<td>15T</td>
+					<td>3.333</td>
+					<td>2.267</td>
+					<td>94.3&quot;</td>
+					<td>64.1&quot;</td>
+			</tr>
+			<tr>
+					<td>17T</td>
+					<td>2.941</td>
+					<td>2.000</td>
+					<td>83.2&quot;</td>
+					<td>56.6&quot;</td>
+			</tr>
+			<tr>
+					<td>19T</td>
+					<td>2.632</td>
+					<td>1.789</td>
+					<td>74.5&quot;</td>
+					<td>50.6&quot;</td>
+			</tr>
+			<tr>
+					<td>21T</td>
+					<td>2.381</td>
+					<td>1.619</td>
+					<td>67.4&quot;</td>
+					<td>45.8&quot;</td>
+			</tr>
+			<tr>
+					<td>24T</td>
+					<td>2.083</td>
+					<td>1.417</td>
+					<td>59.0&quot;</td>
+					<td>40.1&quot;</td>
+			</tr>
+			<tr>
+					<td>27T</td>
+					<td>1.852</td>
+					<td>1.259</td>
+					<td>52.4&quot;</td>
+					<td>35.6&quot;</td>
+			</tr>
+			<tr>
+					<td>30T</td>
+					<td>1.667</td>
+					<td>1.133</td>
+					<td>47.2&quot;</td>
+					<td>32.1&quot;</td>
+			</tr>
+			<tr>
+					<td>34T</td>
+					<td>1.471</td>
+					<td><strong>1.000</strong></td>
+					<td>41.6&quot;</td>
+					<td>28.3&quot;</td>
+			</tr>
+	</tbody>
+</table>
+<hr>
+<h2 id="the-headline-numbers">The headline numbers<a hidden class="anchor" aria-hidden="true" href="#the-headline-numbers">#</a></h2>
+<table>
+	<thead>
+			<tr>
+					<th>Metric</th>
+					<th>SRAM</th>
+					<th>Shimano</th>
+					<th>Difference</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>Lowest gear</td>
+					<td>33/36 = <strong>0.917</strong></td>
+					<td>34/34 = 1.000</td>
+					<td>SRAM is <strong>8.3% easier</strong></td>
+			</tr>
+			<tr>
+					<td>Highest gear</td>
+					<td>48/10 = <strong>4.800</strong></td>
+					<td>50/11 = 4.545</td>
+					<td>SRAM is <strong>5.6% faster</strong></td>
+			</tr>
+			<tr>
+					<td>Total range</td>
+					<td><strong>523%</strong></td>
+					<td>454%</td>
+					<td>SRAM has <strong>15.2% more range</strong></td>
+			</tr>
+	</tbody>
+</table>
+<p>This is the surprising bit: SRAM wins at <em>both</em> ends. It gives you an easier climbing gear <strong>and</strong> a faster top gear — all without any gaping holes in the cassette. That 523% range edge is meaningful. For context, most 2×11-speed setups sit around 450–470%.</p>
+<hr>
+<h2 id="climbing-when-the-road-tilts-up">Climbing: when the road tilts up<a hidden class="anchor" aria-hidden="true" href="#climbing-when-the-road-tilts-up">#</a></h2>
+<p>The climbing equation is simple: at a given cadence, a lower gear ratio means you can ride slower without stalling. That lets you tackle steeper gradients at a sustainable effort.</p>
+<p>Here&rsquo;s what the bailout gears deliver at real-world climbing cadences (700×28c tyres, 2.136m rollout):</p>
+<table>
+	<thead>
+			<tr>
+					<th>Cadence</th>
+					<th>SRAM 33/36</th>
+					<th>Shimano 34/34</th>
+					<th>Difference</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>60 rpm</td>
+					<td>7.0 km/h</td>
+					<td>7.7 km/h</td>
+					<td>SRAM 8.3% slower</td>
+			</tr>
+			<tr>
+					<td>70 rpm</td>
+					<td>8.2 km/h</td>
+					<td>9.0 km/h</td>
+					<td>—</td>
+			</tr>
+			<tr>
+					<td>80 rpm</td>
+					<td>9.4 km/h</td>
+					<td>10.2 km/h</td>
+					<td>SRAM 8.3% slower</td>
+			</tr>
+			<tr>
+					<td>90 rpm</td>
+					<td>10.6 km/h</td>
+					<td>11.5 km/h</td>
+					<td>—</td>
+			</tr>
+	</tbody>
+</table>
+<p>At 80 rpm — a comfortable climbing cadence — the SRAM setup lets you travel 9.4 km/h rather than 10.2 km/h. That 0.8 km/h difference doesn&rsquo;t sound like much, but it translates directly into gradient tolerance. If you&rsquo;re grinding up a 12% pitch and your speed drops to 9 km/h, the Shimano rider is either mashing at an uncomfortably low cadence or walking.</p>
+<p><strong>Real-world take:</strong> On alpine passes, loaded touring, or any climb that nudges past 10%, that 33/36 bailout is a genuine safety net. The Shimano 34/34 is no slouch — it matches what most riders had on 11-speed compact setups — but SRAM simply gives you one more gear to reach for when things get ugly.</p>
+<hr>
+<h2 id="speed-on-the-flat-and-descending">Speed on the flat and descending<a hidden class="anchor" aria-hidden="true" href="#speed-on-the-flat-and-descending">#</a></h2>
+<p>At the other end of the cassette, the 48/10 combination puts down a 4.80 ratio — higher than you&rsquo;d expect from a &ldquo;sub-compact&rdquo; crankset.</p>
+<table>
+	<thead>
+			<tr>
+					<th>Cadence</th>
+					<th>SRAM 48/10</th>
+					<th>Shimano 50/11</th>
+					<th>Difference</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>80 rpm</td>
+					<td>49.2 km/h</td>
+					<td>46.6 km/h</td>
+					<td>+2.6 km/h</td>
+			</tr>
+			<tr>
+					<td>90 rpm</td>
+					<td>55.4 km/h</td>
+					<td>52.4 km/h</td>
+					<td>+3.0 km/h</td>
+			</tr>
+			<tr>
+					<td>100 rpm</td>
+					<td>61.5 km/h</td>
+					<td>58.2 km/h</td>
+					<td>+3.3 km/h</td>
+			</tr>
+			<tr>
+					<td>110 rpm</td>
+					<td>67.7 km/h</td>
+					<td>64.1 km/h</td>
+					<td>+3.6 km/h</td>
+			</tr>
+	</tbody>
+</table>
+<p>At a brisk 90 rpm, SRAM nets you an extra 3 km/h before you spin out. At 100 rpm — sprint territory — it&rsquo;s nearly 62 km/h versus 58. For most riders, you&rsquo;ll run out of descent or nerve before you run out of gear on either setup. But the SRAM&rsquo;s 10T cog means you can hold a faster cruising speed at a more comfortable cadence on rolling terrain, especially if you like to sit around 85–95 rpm.</p>
+<p><strong>The 10T trade-off:</strong> A 10-tooth cog does come with marginally higher drivetrain friction than an 11T — the chain has to articulate around a tighter radius. In practice, SRAM&rsquo;s Flattop chain and the XDR driver body were designed around this, and independent testing (Zero Friction Cycling, CeramicSpeed) puts the efficiency loss at well under 1 watt at typical power outputs. You won&rsquo;t feel it. But it&rsquo;s worth acknowledging.</p>
+<hr>
+<h2 id="gear-steps-how-smooth-is-the-shift">Gear steps: how smooth is the shift?<a hidden class="anchor" aria-hidden="true" href="#gear-steps-how-smooth-is-the-shift">#</a></h2>
+<p>Both cassettes are 12-speed, so neither feels gappy by modern standards. Here are the step percentages between adjacent cogs on the big ring:</p>
+<table>
+	<thead>
+			<tr>
+					<th>Transition</th>
+					<th>SRAM step</th>
+					<th>Shimano step</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>1→2</td>
+					<td>9.1%</td>
+					<td>8.3%</td>
+			</tr>
+			<tr>
+					<td>2→3</td>
+					<td>8.3%</td>
+					<td>7.7%</td>
+			</tr>
+			<tr>
+					<td>3→4</td>
+					<td>7.7%</td>
+					<td>7.2%</td>
+			</tr>
+			<tr>
+					<td>4→5</td>
+					<td>13.3%</td>
+					<td>6.7%</td>
+			</tr>
+			<tr>
+					<td>5→6</td>
+					<td>11.8%</td>
+					<td>11.8%</td>
+			</tr>
+			<tr>
+					<td>6→7</td>
+					<td>10.6%</td>
+					<td>10.5%</td>
+			</tr>
+			<tr>
+					<td>7→8</td>
+					<td>9.5%</td>
+					<td>9.5%</td>
+			</tr>
+			<tr>
+					<td>8→9</td>
+					<td>12.5%</td>
+					<td>12.5%</td>
+			</tr>
+			<tr>
+					<td>9→10</td>
+					<td>14.3%</td>
+					<td>11.1%</td>
+			</tr>
+			<tr>
+					<td>10→11</td>
+					<td>12.5%</td>
+					<td>10.0%</td>
+			</tr>
+			<tr>
+					<td>11→12</td>
+					<td>11.1%</td>
+					<td>11.8%</td>
+			</tr>
+	</tbody>
+</table>
+<p>Two things stand out:</p>
+<ol>
+<li>
+<p><strong>SRAM&rsquo;s tight top end.</strong> The single-tooth jumps at 10→11→12→13 mean the four fastest gears are closely spaced — perfect for maintaining cadence in a fast paceline or rolling terrain. Shimano gives you 11→12→13→14, which is also good but starts one tooth slower.</p>
+</li>
+<li>
+<p><strong>SRAM&rsquo;s mid-range gap.</strong> The 13→15 jump (13.3%) is SRAM&rsquo;s biggest step in the cruising zone. Shimano has a smoother progression through 13→14→15. If you spend a lot of time in that 30–38 km/h range at a fixed cadence, Shimano gives you one more intermediate ratio.</p>
+</li>
+</ol>
+<p>The remaining mid-to-low steps are comparable, with both cassettes spacing out to sensible gaps as you move into climbing territory.</p>
+<hr>
+<h2 id="front-shifting-chainring-gap-matters">Front shifting: chainring gap matters<a hidden class="anchor" aria-hidden="true" href="#front-shifting-chainring-gap-matters">#</a></h2>
+<p>SRAM&rsquo;s 48/33 has a 15-tooth gap (145% jump). Shimano&rsquo;s 50/34 has a 16-tooth gap (147% jump). Smaller gap = easier front shifts, all else equal. In practice, both modern groupsets handle front shifts cleanly — SRAM&rsquo;s Yaw derailleur design eliminates the need for trim positions entirely — but the slightly tighter SRAM gap is marginally friendlier when you need to dump from big to small ring on a sudden ramp.</p>
+<hr>
+<h2 id="practical-overlap">Practical overlap<a hidden class="anchor" aria-hidden="true" href="#practical-overlap">#</a></h2>
+<p>Both setups have significant overlap between big and small rings, so you&rsquo;re not constantly cross-chaining. With SRAM, the 33T small ring combined with the 10-11-12-13 top cogs gives you ratios of 3.30 down to 2.54 — these overlap neatly with the 48T ring on the 15-21T range. You can stay in the big ring for most flat-to-rolling terrain and only drop to the small ring when gradients exceed 3–4%.</p>
+<p>Shimano&rsquo;s overlap is similar: the 34T ring with 11-12-13-14 cogs (3.09–2.43) overlaps with the 50T ring&rsquo;s 17-21T range.</p>
+<hr>
+<h2 id="which-one-is-for-you">Which one is for you?<a hidden class="anchor" aria-hidden="true" href="#which-one-is-for-you">#</a></h2>
+<h3 id="pick-sram-4833--10-36-if">Pick SRAM 48/33 × 10-36 if:<a hidden class="anchor" aria-hidden="true" href="#pick-sram-4833--10-36-if">#</a></h3>
+<ul>
+<li>You ride in <strong>steep terrain</strong> regularly — alpine passes, 15%+ ramps, loaded bikepacking.</li>
+<li>You value <strong>range above all else</strong> — the 523% span covers everything from a 25% climb to a 70 km/h descent without compromise.</li>
+<li>You want <strong>one bike that does everything</strong> — fast group rides, solo epics, and the occasional gravel detour.</li>
+<li>You&rsquo;re running a <strong>SRAM AXS ecosystem</strong> and want the cleanest integration (fully wireless, no cables, the 10T needs an XDR freehub body anyway).</li>
+</ul>
+<h3 id="pick-shimano-5034--11-34-if">Pick Shimano 50/34 × 11-34 if:<a hidden class="anchor" aria-hidden="true" href="#pick-shimano-5034--11-34-if">#</a></h3>
+<ul>
+<li>You prefer <strong>traditionally spaced gearing</strong> and don&rsquo;t want the 10T cog&rsquo;s slightly tighter chain wrap.</li>
+<li>Your riding is <strong>predominantly flat to rolling</strong> and you want the extra intermediate ratio in the 13→14→15 range for fine cadence control at cruising speed.</li>
+<li>You&rsquo;re already on a <strong>Shimano HG freehub</strong> (11-34 fits the standard 11-speed HG body) — switching to SRAM means a new XDR freehub or wheelset.</li>
+<li>You appreciate the <strong>slightly bigger 50T ring</strong> for aesthetic and marginal-efficiency reasons, and the 34/34 low gear is enough for your local climbs.</li>
+</ul>
+<hr>
+<h2 id="the-verdict">The verdict<a hidden class="anchor" aria-hidden="true" href="#the-verdict">#</a></h2>
+<p>These are both excellent modern drivetrains, and you won&rsquo;t suffer on either. But if you forced me to pick:</p>
+<p><strong>The SRAM 48/33 with 10-36 is the more versatile setup.</strong> It gives you a meaningfully easier climbing gear <em>and</em> a faster top gear in one package — something that shouldn&rsquo;t be possible on paper but is. The 523% range is the widest available on any road 2×12 drivetrain, and it achieves that without the gappy feel of a 1× mullet setup. For the rider who wants to climb Alpe d&rsquo;Huez one day and hammer the valley road the next, without ever thinking about gear limitations, it&rsquo;s the clear winner.</p>
+<p>That said, if you&rsquo;re a flatland rider who never sees double-digit gradients and you value the subtle refinement of a slightly more progressive mid-cassette, the Shimano 50/34 × 11-34 remains a beautifully judged setup. It&rsquo;s the evolution of the compact crankset formula that&rsquo;s served road cyclists for decades — just refined to 12-speed perfection.</p>
+<p>Either way, we&rsquo;re living in a golden age of gearing. The days of grinding a 39/25 up a 10% grade are, mercifully, behind us.</p>
+<hr>
+<p><em>All calculations assume 700×28c tyres with a 2.136m rollout. Your actual speeds will vary with tyre size, pressure, and road surface. Gear inches calculated against a nominal 28.3&quot; wheel diameter.</em></p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://10.0.0.45:1313/tags/cycling/">Cycling</a></li>
+      <li><a href="http://10.0.0.45:1313/tags/gear-ratios/">Gear-Ratios</a></li>
+      <li><a href="http://10.0.0.45:1313/tags/sram/">Sram</a></li>
+      <li><a href="http://10.0.0.45:1313/tags/shimano/">Shimano</a></li>
+      <li><a href="http://10.0.0.45:1313/tags/drivetrain/">Drivetrain</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="http://10.0.0.45:1313/posts/2026-06-21-comfyui-debian-13-uv/">
+    <span class="title">« Prev</span>
+    <span>Running ComfyUI on Debian 13</span>
+  </a>
+  <a class="next" href="http://10.0.0.45:1313/posts/2022-08-24-subtlety-of-gearing/">
+    <span class="title">Next »</span>
+    <span>Subtlety of gearing</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="http://10.0.0.45:1313/">Al&#39;s Ramblings</a></span> · 
+
+    
+    
+    <span>
+        Powered by
+        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
