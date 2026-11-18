@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+    <linearGradient id="sun" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#fbbf24"/>
+      <stop offset="100%" style="stop-color:#f97316"/>
+    </linearGradient>
+    <filter id="blur">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="white" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="400" fill="url(#bg)"/>
+  <rect width="800" height="400" fill="url(#grid)" opacity="0.03"/>
+
+  <!-- Sun glow, top right -->
+  <circle cx="718" cy="70" r="90" fill="#f97316" opacity="0.10" filter="url(#blur)"/>
+  <circle cx="718" cy="70" r="26" fill="url(#sun)" opacity="0.9"/>
+  <g stroke="#fbbf24" stroke-width="3" stroke-linecap="round" opacity="0.7">
+    <line x1="718" y1="28" x2="718" y2="16"/>
+    <line x1="718" y1="112" x2="718" y2="124"/>
+    <line x1="676" y1="70" x2="664" y2="70"/>
+    <line x1="760" y1="70" x2="772" y2="70"/>
+    <line x1="688" y1="40" x2="680" y2="32"/>
+    <line x1="748" y1="100" x2="756" y2="108"/>
+    <line x1="748" y1="40" x2="756" y2="32"/>
+    <line x1="688" y1="100" x2="680" y2="108"/>
+  </g>
+
+  <!-- Glow behind terminal -->
+  <ellipse cx="380" cy="210" rx="320" ry="170" fill="#6366f1" opacity="0.06" filter="url(#blur)"/>
+
+  <!-- Terminal window -->
+  <rect x="90" y="50" width="560" height="270" rx="8" fill="#0f0f23" stroke="#2d2d5e" stroke-width="1"/>
+  <rect x="90" y="50" width="560" height="32" rx="8" fill="#1e1e3a"/>
+  <rect x="90" y="66" width="560" height="16" fill="#1e1e3a"/>
+  <circle cx="110" cy="66" r="6" fill="#ff5f57"/>
+  <circle cx="132" cy="66" r="6" fill="#febc2e"/>
+  <circle cx="154" cy="66" r="6" fill="#22c55e"/>
+  <text x="370" y="71" font-family="monospace" font-size="12" fill="#8888aa" text-anchor="middle">al@router:~</text>
+
+  <!-- Command -->
+  <text x="115" y="108" font-family="monospace" font-size="13" fill="#22c55e">$</text>
+  <text x="130" y="108" font-family="monospace" font-size="13" fill="#e0e0e0">dig +short auiot.isolarcloud.com @1.1.1.1</text>
+
+  <!-- Results: Cloudflare flapping -->
+  <text x="115" y="136" font-family="monospace" font-size="13" fill="#f87171">192.168.0.0</text>
+  <text x="250" y="136" font-family="monospace" font-size="11" fill="#8888aa">← US geo answer, dead</text>
+  <text x="115" y="156" font-family="monospace" font-size="13" fill="#f87171">192.168.0.0</text>
+  <text x="115" y="176" font-family="monospace" font-size="13" fill="#22c55e">3.105.91.91</text>
+  <text x="250" y="176" font-family="monospace" font-size="11" fill="#8888aa">← AWS Sydney, real</text>
+  <text x="115" y="196" font-family="monospace" font-size="13" fill="#f87171">192.168.0.0</text>
+
+  <!-- Quad9 -->
+  <text x="115" y="228" font-family="monospace" font-size="13" fill="#22c55e">$</text>
+  <text x="130" y="228" font-family="monospace" font-size="13" fill="#e0e0e0">dig +short auiot.isolarcloud.com @9.9.9.9</text>
+  <text x="115" y="250" font-family="monospace" font-size="13" fill="#22c55e">3.105.91.91</text>
+
+  <!-- Badges -->
+  <rect x="115" y="272" width="120" height="22" rx="4" fill="#3a1e1e" stroke="#f87171" stroke-width="0.5"/>
+  <text x="175" y="287" font-family="monospace" font-size="11" fill="#f87171" text-anchor="middle">1.1.1.1 ✗ 70%</text>
+  <rect x="245" y="272" width="105" height="22" rx="4" fill="#1e3a1e" stroke="#22c55e" stroke-width="0.5"/>
+  <text x="297" y="287" font-family="monospace" font-size="11" fill="#22c55e" text-anchor="middle">Quad9 ✓ 5/5</text>
+  <rect x="360" y="272" width="110" height="22" rx="4" fill="#2e1e2e" stroke="#a855f7" stroke-width="0.5"/>
+  <text x="415" y="287" font-family="monospace" font-size="11" fill="#c084fc" text-anchor="middle">Alibaba geoDNS</text>
+
+  <!-- Cursor -->
+  <rect x="480" y="276" width="8" height="15" fill="#a78bfa" opacity="0.8"/>
+
+  <!-- Header -->
+  <text x="400" y="362" font-family="'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="700" fill="#e0e0e0" text-anchor="middle" letter-spacing="1">
+    Sungrow Solar vs <tspan fill="url(#sun)">Cloudflare DNS</tspan>
+  </text>
+  <text x="400" y="386" font-family="'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#8888aa" text-anchor="middle">
+    Why my inverter kept going offline
+  </text>
+</svg>
